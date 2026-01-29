@@ -1,0 +1,142 @@
+\documentclass[]{book}
+
+\usepackage{graphicx,float}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{tablefootnote}
+\usepackage{comment}
+\usepackage{gensymb}
+\renewcommand{\arraystretch}{1.35}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{cleveref}
+\usepackage{natbib}
+\usepackage{amsmath}
+% 
+\usepackage{txfonts}
+\usepackage{booktabs}
+\usepackage{pdflscape}
+\usepackage{starfont}
+\usepackage{soul}
+\newcommand{\p}{\partial}
+\usepackage{epigraph}
+\usepackage[utf8]{inputenc}
+\usepackage[greek, english]{babel}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	citecolor=blue,
+	urlcolor=blue
+}
+
+
+\geometry{
+	margin=2.5 cm
+}
+
+
+
+\lstdefinelanguage{json}{
+	basicstyle=\ttfamily\small,
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	numbersep=8pt,
+	showstringspaces=false,
+	breaklines=true,
+	frame=single,
+	literate=
+	*{0}{{{\color{blue}0}}}{1}
+	{1}{{{\color{blue}1}}}{1}
+	{2}{{{\color{blue}2}}}{1}
+	{3}{{{\color{blue}3}}}{1}
+	{4}{{{\color{blue}4}}}{1}
+	{5}{{{\color{blue}5}}}{1}
+	{6}{{{\color{blue}6}}}{1}
+	{7}{{{\color{blue}7}}}{1}
+	{8}{{{\color{blue}8}}}{1}
+	{9}{{{\color{blue}9}}}{1}
+	{:}{{{\color{red}{:}}}}{1}
+	{,}{{{\color{red}{,}}}}{1}
+	{\{}{{{\color{black}{\{}}}}{1}
+	{\}}{{{\color{black}{\}}}}}{1}
+}
+
+
+
+\title{PeakSat Optical Operations}
+\author{author}
+
+
+\begin{document} 
+\maketitle
+
+\frontmatter
+
+
+\abstract{TODO}
+
+\frontmatter
+
+{
+	\hypersetup{linkcolor=black}
+	\tableofcontents
+}
+
+\input{chapters/Preface}
+
+
+\input{chapters/InGreek}
+
+
+\mainmatter
+
+\chapter{Introduction}
+\label{chapt:introduction}
+\input{chapters/Introduction}
+
+\chapter{Optical Payload}
+\label{chapt:optical_payload}
+\input{chapters/OpticalPayload}
+
+\chapter{ADCS}
+\label{chapt:adcs}
+\input{chapters/ADCS}
+
+\chapter{Misalignment Measurement}
+\label{chapt:alignment}
+\input{chapters/Alignment}
+
+
+\chapter{Conclusions}
+\label{chapt:operations}
+\input{chapters/Operations}
+
+
+\appendix
+\chapter{3D Rotations}
+\input{chapters/ApRotationMatrices}
+
+
+
+\chapter{Optimizing Access to Aligmnent Prism}
+\input{chapters/ApOptimizingSTRPrismAccess}
+
+\chapter{Gaussian Error Propagation}
+\input{chapters/ApErrorPropagation}
+
+%\chapter{Example of a Payload Mode Command}
+%\input{chapters/ApPeakPySequence}
+
+
+%\bibliographystyle{aa}
+% \bibliography{biblio}
+
+
+\end{document}

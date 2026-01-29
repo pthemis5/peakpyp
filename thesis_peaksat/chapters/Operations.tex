@@ -1,0 +1,38 @@
+\epigraph{Sometimes you have to bend the rules to make them work.}{\textit{Cpt. Kirk, Star Trek TOS}}
+
+Before Jumping into the conclusions, we are going to mention 3 operational examples, that combine most of the topics we explored before, in order to get a better understanding of the usefulness of our analysis. 
+
+\section{Operational Scenarios}
+
+\subsection{Optical Pass Planning}
+From the PeakSat platform perspective, the OBC has to mainly command the ATLAS terminal and the ADCS  during optical pass attempts. PeakSat will perform 2 types of Payload Operation Modes (POM).  No change takes place in the ADCS configuration during the pass PeakSats Commands the ADCS to change the Ground Target Tracking Vector of the ADCS during the Optical Pass, based on detected Position of the Beacon Laser by the Beacon Camera. This correction may become necessary, if during the in-orbit optical alignment phase we find that dynamic (e.g thermal, we can keep in mind that Optical passes can occur a few minutes after the satellite enters the Earth’s shadow) misalignments between the platform and the ADCS are larger that a threshold. The Operator will be able to configure a series of parameters in each optical pass, in order to ensure the satellite will reach its maximum performance. Below, a high level explanation of how simulations show that these parameters can be configured will be made. These explanations are not catholic, as new results - either experimental or practical - may arise. Any change of parameters should be made with due care.
+
+\subsection{Optical Link Post Processing}
+We are going to get, GNSS, ADCS orientation and rates, and atlas detected positions We have tested that we know what position ADCS propagates, so we can assess the control error.
+
+Since measurements from these 3 subsystems will not be on the same timestamps, we are going to bring them to one. We are going to interpolate the GNSS data and Beacon Camera detected positions to the ADCS timestamps. For the GNSS data we are going to fit an orbit to them, and this way we both cancel out random GNSS noise, and also we can propagate to the ADCS timestamps as we want. Also, because the ATLAS BC detected position are going to be the most high frequency data that we will get, can easily choose the 2 closest points around an orientation point of the ADCS, and interpolate the X, Y position using linear interpolation to the ADCS timestamps. 
+
+
+\subsection{In orbit Optical Alignment (BCC-SBC)}
+For this misalignment (which is practically the ATLAS beacon camera, as an SBC defined by the Star Tracker estimation), we already have an initial guess from the on-ground optical alignments. Since the measurements were performed both pre- and post-vibe, we do not expect it to change significantly (at least the static misalignment).
+
+If the beacon is not detected reliably by the Beacon Camera—which can be understood from the pat.log file—then a trial-and-error phase will be performed. Initially, the ADCS pointing performance will be assessed by downloading Star Tracker telemetry, actual satellite positions (GNSS), and SGP4-propagated positions (used by the ADCS for pointing), in order to assess the ADCS control error. If this error is high, we will consult CubeSpace and perform simulations in order to identify which parameters must be changed.
+
+If ADCS ground-tracking performance is verified, then we will change the ADCS ground-tracking vector (tgtTrackBodyVecX, Y, Z) in 1.5° steps. In this way, we will scan a grid (with a different step in each optical pass) to try to find the beacon laser. Even though this is not expected, such a misalignment can exist if, for example, we have an incorrect STR–STR MC characterization or a Star Tracker estimation bias.
+
+After the static misalignments have been fitted, dynamic misalignments (such as thermoelastic ones) should be addressed. First, we should keep in mind that, since the satellite will be in an SSO orbit, all night passes will occur under similar thermal conditions; thus, large thermoelastic changes are not expected. However, this cannot be quantified further. Nevertheless, once pointing is stable, we will assess whether the SBC–BCC transformation appears to have any correlation with temperature.
+
+The final product of this phase is the SBC–BCC transformation, which will allow us to seamlessly use vectors produced by the ADCS and ATLAS.
+If ADCS ground-tracking performance is verified, then we will change the ADCS ground-tracking vector (tgtTrackBodyVecX, Y, Z) in 1.5° steps. In this way, we will scan a grid (with a different step in each optical pass) to try to find the beacon laser. Even though this is not expected, such a misalignment can exist if, for example, we have an incorrect STR–STR MC characterization or a Star Tracker estimation bias.
+
+After the static misalignments have been fitted, dynamic misalignments (such as thermoelastic ones) should be addressed. First, we should keep in mind that, since the satellite will be in an SSO orbit, all night passes will occur under similar thermal conditions; thus, large thermoelastic changes are not expected. However, this cannot be quantified further. Nevertheless, once pointing is stable, we will assess whether the SBC–BCC transformation appears to have any correlation with temperature.
+
+The final product of this phase is the SBC–BCC transformation, which will allow us to seamlessly use vectors produced by the ADCS and ATLAS.
+
+\section{Conclusions}
+In this work we started from basic satellite concepts, and discussed with more detailed important considerations concerning an Optical Communications Mission, PeakSat. We started by explaining the orbit of the satellite, and its visibility windows. Then we made an introduction to ATLAS, the optical payload used. The Payload has 2 apertures, one Beacon Camera, for detecting the OGS orientation, and one for the downlink laser. Then, we started presenting topics regarding the ADCS of a satellite, focusing on the ADCS of PeakSat. We saw that because for an Optical Communications Mission strict pointing requirements apply, the correct configuration of the ADCS is a necessary step towards the mission success. We put our main focus on the Star Tracker, as the most accurate estimation sensor.
+
+Combining the 2 topics above, we made clear why a misalignment characterization between the Optical Payload and the ADCS is necessary, and we saw that this was done using the characterized alignment prism of the Star Tracker, and the reflective surfaces of the optical Payload apertures. We saw the technical details of the measurement procedure. From the measurement Beacon Camera reflective surface, that is the only measurement we have both before, and after the vibration testing, we saw that its orientation with respect to the star tracker did not change more than $0.0011 \degree$. This means that we do not expect major launch induced misalignments. Moreover, using the transmit aperture reflective surface measurement, we calculated an initial guess of the Beacon Camera Coordinates to ADCS coordinates transformation. We saw how we can explore with simulations what is the most accurate way to pass the misalignment into the ADCS, and that we decided to add it as the mounting configuration of the Star Tracker. This way we minimize both the absolute, and the relative pointing errors. 
+
+Concluding, we showed some preparation scenarios planned for when the satellite is in orbit, and combine all the topics discussed in this theses. \textit{If they will actually take place in orbit, or not, only time will tell.}
+

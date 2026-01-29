@@ -1,0 +1,265 @@
+\epigraph{Our attitudes control our lives. Attitudes are a secret power working twenty-four hours a day, for good or bad. It is of paramount importance that we know how to harness and control this great force.}{Irving Berlin}
+
+\section{Introduction}
+The Attitude Determination and Control Subsystem (ADCS) is a critical component of a satellite, because as the title says, it controls it's orientation into space. The pointing requirements of different missions can vary significantly. For missions like PeakSat, that aim to perform optical communication experiments from Low Earth Orbit, it is critical to have a reliable and stable ADCS. In this chapter, we will discuss start by briefly presenting PeakSat ADCS (\cref{sec:peaksat_adcs}) and then mention the different Sensors and Actuators used by our system (\cref{sec:adcs_components}). We will close \cref{sec:adcs_components} by disusing some important considerations about the spin stabilization of the satellite - something that is essential to have before attempting an optical pass. We will continue by presenting the coordinate systems used by the ADCS (\cref{sec:adcs_coordinate_systems}) in order to be able to understand the ADCS mounting configurations (\cref{sec:adcs_mounting_configuration}), or the way to tell to the ADCS algorithms the physical orientation of its sensors. Understanding this topic will be very useful for the Optical Pass post-processing analyses. (TODO: add reference in doc.) Finally, we will close this chapter, by explaining the different methods on how the misalignment measurement (explained in detail in \cref{chapt:alignment}) can be passed in the ADCS.
+
+\section{PeakSat's ADCS}
+\label{sec:peaksat_adcs}
+CubeSpace ADCS Gen2 is the ADCS used for the PeakSat Mission.
+
+The configuration selected for PeakSat, includes the following components:
+
+\begin{itemize}
+	\item CubeComputer
+	\item 2x Gyroscopes
+	\item 2x Gen2 CubeMag Compact Magnetometers
+	\item Gen2 CubeSense sun sensor
+	\item Gen2 CubeSense earth sensor
+	\item TY-Space PTS3S-K4 Star Tracker
+	\item 3x Magnetorqures
+	\item 3x Reaction Wheels
+\end{itemize}
+
+The components will be discussed in more detail in the next Section. 
+
+\section{ADCS Components}
+\label{sec:adcs_components}
+
+In order to understand the optimal ADCS configuration to perform an optical pass, we initially need to understand a few concepts about the ADCS.
+
+
+\subsection{Actuators}
+
+
+PeakSat ADCS consists of 2 types of actuators, the magnetorquers, and the reaction wheels. The first can exercise a torque to the satellite by interacting with the Earth's magnetic field, and the latter changes the angular velocity and orientation of the satellite, by exchanging angular momentum with it. The magnetorquers can produce a torque of up to TBD, whereas the reaction wheels TBD.
+
+
+\subsection{Sensors}
+The most accurate attitude estimation sensor of PeakSat is the TY-Space star tracker (PST3S-K4). The star tracker camera can measure the orientation of the satellite with an accuracy of $5'' \space 3 \sigma$, at angular rates $< 1 \degree /s$, and $8'' \space 3 \sigma$ at angular rates $< 0.5 \degree /s$
+
+
+PeakSat ADCS uses 5 types of sensors to find its orientation and
+rotation state. These are:
+
+\begin{itemize}
+	\item The Gyroscopes, that can find the angular velocity of the satellite	with respect to an inertial frame of reference, relative to an initial gyroscopic bias. Gyroscopes can work at any condition, and they do not need any model references to find the satellites angular velocities.
+	\item The Magnetometers, measure the Earth\textquotesingle s magnetic field. By having only this measurement the ADCS can not conclude much about the Position and Orientation of the Satellite, however by having an accurate position knowledge (e.g. by a good TLE, or GNSS data) the ADCS can correlate the measured magnetic and find the satellites orientation. Magnetometers can measure earth magnetic field vectors at all times.
+	\item The Earth Sensor, that is practically an IR camera, that can detect the Earth Horizon. This can detect 2 angles TBD. The Earth Sensor can	generally take valid measurements as long as the Earth is in its FoV.
+	\item The Fine Sun Sensor (FSS) that can detect the sun within a field of view of approximately 180 degrees full cone. By having accurate Time, and Position knowledge, the ADCS can correlate the modelled sun-vector with the measured sun vector and find the Orientation of the satellite. In general the Sun Sensor can detect the sun, as long as the sun is in its FoV.
+	
+\end{itemize}
+
+\subsection{Star Tracker}
+\label{ssec:star_tracker}
+The star tracker is the Sensor that is the most mentioned in this document, so it deserves it's own subsection. It is by far the most accurate sensor of the satellite, that can find the orientations by taking images of star fields, with an arcsecond accuracy. The Star Tracker is the only sensor of the satellite that can provide adequate accuracy in order to be within the limits of the Optical Pass pointing requirements. To understand Star Tracker's estimation accuracy, we need to understand that it mainly originates from the detected positions of the stars in the Star Field. We can define 2 types of accuracy.
+	
+\begin{itemize}
+	\item The \textbf{pointing accuracy} of the star tracker as the accuracy to find the camera main axis vector (vector that is vertical to the camera plane, and passes from its center). If $ps$ is the pixel scale, an angular change $\Delta \theta$ of this vector will result in a shift in the positions of the stars $\Delta N$ to be $\Delta N = ps \times \Delta \theta$. All the stars will change by the same amount of pixels, so it is easier for the Star Tracker to understand such a change. 
+	\item The \textbf{rolling accuracy}, which is the rotation angle of the orientation of the Star Tracker, around its primary vector. If $ps$ is the pixel scale, and $\Delta \theta$ is a change of the rolling angle, this will result in a	shift in the positions of the star $\Delta N$ to be $\Delta N = \sin \phi \times ps \times \Delta \theta$, where $\phi$ is the	angular distance from the center of the Star Tracker. A star Tracker will typically have an FoV of $\approx 20 \degree$, which means that it will result in a significantly smaller shift in the detected	positions of of the stars in the camera, meaning that it is harder for the Star Tracker to understand such a change, and the rolling angle will have a higher uncertainty.
+\end{itemize}
+PeakSat Star Tracker manufacturer claims a pointing uncertainty of $0.5''$, and a rolling uncertainty of $50''$. We ought to keep this difference in mind, because this will likely to affect the satellites pointing performance, especially during the Optical Passes, and we will possibly have to choose weather to roll, or point the Star Tracker during the pass.
+
+As we will see in \cref{chapt:alignment}, we need to align the Star Tracker with the BC. For this, a Cubic Prism is mounted on the Star Tracker body. The sides of the cube can be used to create an orthogonal reference system. The cubic prism and the Star tracker is characterized by TY-Space, and the transformation matrix between the Star Tracker Coordinate system, and the Cubic Prism has been provided. 
+
+
+
+
+\section{ADCS Coordinate Systems}
+\label{sec:adcs_coordinate_systems}
+\subsection{Orbit reference coordinate (ORC)}
+The orbit reference coordinate is defined as follows:
+\begin{itemize}
+	\item  $X_{ORC}$ is defined by the flight direction, meaning the velocity vector of the orbit.
+	\item $Y_{ORC}$ is defined by the Orbit Anti-normal direction - that is the vectors that are vertical to the orbit vectors. This vector can be found as the external product of the position and velocity of the vector
+	\item $Z_{ORC}$ is defined by the Nadir direction, and can by found by the opposite of the position vector.
+\end{itemize}
+
+For a circular orbit, this coordinate system can be considered orthogonal. 
+
+
+
+
+
+\subsection{ORC to ECI transformation}
+In several cases we will need to transform quaternions provided by the ADCS in ORC, to ECI, in order to refer them with other used vectors. The transformation is defined below, based on the SGP4 propagated positions, that are used by the ADCS. We start with the velocity direction: 
+$$X_{ORC} = V_{satellite}$$
+
+continue with the nadir direction: 
+$$Z_{ORC} = -P_{satellite}$$
+
+take their cross product:
+$$Y_{ORC} = -X_{ORC} \times Z_{ORC} = V_{satellite} \times P_{satellite} = $$
+and calculate it. 
+$$\begin{pmatrix} v_y p_z - v_z p_y  \\ v_z p_x - v_x p_z\\ v_x p_y - p_x v_y \end{pmatrix}$$
+It is trivial to show that the final rotation matrix will be: 
+$$R_{ORC -> ECI} = \begin{pmatrix} v_x & v_y p_z - v_z p_y & -p_x  \\ v_y & v_z p_x - v_x p_z & -p_y\\v_z &  v_x p_y - p_x v_y & -p_z\end{pmatrix}$$
+
+
+
+\subsection{Spacecraft body coordinates (SBC)}
+We can express it using $X_{SBC}, Y_{SBC}, Z_{SBC}$. We can practically define it as we want. When the roll, pitch, yaw angles are zero, then the SBC has the same orientation as the ORC. The ADCS defined SBC must be the only coordinate frame that is considered when specifying sensor or actuator mounting configurations, and when interpreting attitude angles. It is very useful, because as we will see later, we use this coordinate system, to refer the sensors mounting configurations. Moreover the relative misalignments discussed in \cref{chapt:alignment} will be finally expressed in this coordinate system. For a more complete understanding of the SBC, \cref{sec:adcs_mounting_configuration} should be checked. The graphical representation of the SBC can be seen in \cref{fig:adcs_sbc}.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/adcs_sbc.png}
+	\caption{ADCS CAD, with highlighted ADCS sensors, and SBC plotted.}
+	\label{fig:adcs_sbc}
+\end{figure}
+
+
+\section{ADCS Mounting Configuration}
+\label{sec:adcs_mounting_configuration}
+The position and the orientation of the Actuator and Estimator components of the ADCS is controlled through the ADCS mounting configuration. The mounting configuration of each component is expressed with respect to the Satellite Body Coordinates (SBC) - and the SBC is defined by the mounting configurations of all the components. Moreover, the Ground Tracking vector of the satellite is also expressed in the SBC. Regarding the static misalignment, the 2 main quantities of our interest are the Mounting configuration of the Star Tracker, and the Ground Tracking Vector. The final misalignment measurement will be passed to the ADCS as a function of these 2, meaning that for example a misalignment of $1 \degree$ can change the Ground Tracking Vector by $1 \degree$ with respect to the SBC, or it can change the the orientation of the STR by the same amount. Note that all these values will be configurable in-orbit, to allow for better calibration and fine-tunning of these parameters to maximize the Point Acquisition and Tracking (PAT) performance. 
+
+The mounting of CubeSpace sensors is specified using a Euler 3-2-1 intrinsic angle sequence. The resulting transform will rotate vectors in the local sensor coordinate frame to SBC. The three angles are labeled as: alpha ($\alpha$), beta ($\beta$), and gamma ($\gamma$), and they are applied in the same order: $\alpha$ is applied first, around the sensor local Z-axis. $\beta$ is applied next, around the newly transformed Y-axis, and $\gamma$ is applied last, around the newly transformed X-axis. Considering the above explanation describes an intrinsic rotation (\cref{ap:rotation_sequences}), in order to mathematically compute the transformation matrix of a sensor to the SBC, we have to use an 1-2-3 extrinsic sequence. The mounting configurations of all the sensors and actuators of the ADCS has been performed using these guidelines, tested through simulations, and validated by the ADCS provider.
+
+
+\subsection{Attitude Orientation Format}
+CubeADCS, when expressing the output quaternion or Euler angles, for some reason follows an Euler 2-1-3 convention for roll, pitch, yaw. What this means is that the attitude of the satellite, is defined by intrinsic rotations, with respect to the ORC (\cref{sec:adcs_coordinate_systems}) coordinate system. 
+
+This means that, in order to describe an intrinsic rotation, we: 
+\begin{enumerate}
+	\item rotate through y (pitch)
+	\item rotate through the new x (roll)
+	\item rotate through the new z (yaw)
+\end{enumerate}
+
+We still have to keep in mind, that in order to construct the ORC to SBC rotation matrix (\cref{ap:rotation_sequences}), we have to use a 3-1-2 rotation sequence. 
+
+
+\subsection{SBC (again)}
+\label{ssec:adcs_sbc_again}
+After we understand what the SBC is, and what the mounting configurations are, we will revisit this subject, in order to gain some deeper insights on it. 
+The SBC is the internal way of the ADCS to know its sensors and actuators orientation. There is no mechanical and physical reference to it, just all the sensors and actuators mounting configurations have to be configured in a way that is consistent with each other.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/adcs_from_d2s2.png}
+	\caption{ADCS simulation environment, as presented in the D2S2 environment.}
+	\label{fig:adcs_from_d2s2}
+\end{figure}
+To better understand this, lets take as an example \cref{fig:adcs_from_d2s2}, that displays the Star Tracker, and the Sun Sensor (and the ATLAS Payload is on +Z axis, facing downwards). Geometrically speaking (and using for simplicity only the 2 sensors displayed above) these 4 Statements would be equivalent:
+
+\begin{itemize}
+	
+	\item
+	STR mounted on +Y, SS on -X (as in image)
+	\item
+	STR on +X, SS on +Y
+	\item
+	STR on -Y, SS on +X
+	\item
+	STR on -X, SS on -Y
+\end{itemize}
+
+All the configurations below are valid and each one defines the SBC differently. However, we do not have the freedom to choose our SBC exactly as we want, as there is some CubeADCS functionality that is implemented only on specific SBC axes. For example there is no XThompson, and the Control Mode ConTgtTrack points the +Z SBC axis to the ground. This means that for PeakSat we can not set the long axis to be the X axis - because the long axis is the only axis a Steady Spin State (ZThompson) can be reached (the other 2 axes have similar moments of inertia, and since there is no dominancy any spin around them will be unstable), and we also have to define the +Z axis to be towards the ATLAS terminal, as there is a control mode that can do exactly this.
+
+A very important constrain exists in the mounting configurations of RWLs, MTQs, GYROs that they are axis quantized. For all other sensors, we define 3 Euler angles, that create a 3D transformation, and so they can be placed in any configuration (physical or theoretical) with each other. However, for the 2 GYROS, the 3 Reaction Wheels and the 3 Magnetorquers, we can only choose if we want them to be in: +X, -X, +Y, -Y, +Z, -Z axes. This is not a problem mechanically, as all the above are included in the CubeADCS stack, but it might be a problem when we want to reach the optimal pointing performance, during an optical pass. Moreover, we can understand that we can choose one out of 24 (6 sides x 4 SBCs on each side) possible SBCs. Our main constrain as we said before is that we want the +Z axis to be facing downwards, at the direction of the ATLAS Terminal. This means that any of the 4 possible SBCs where the +Z axis is ``downwards'' is acceptable, we still do not have any evidence why to prefer one from the other, so we chose in random.
+
+
+\section{Understanding the Estimated Orientation in practice.}
+\label{sec:adcs_estimation_practice}
+It is very likely, if not certain that the mounting configurations of all ADCS sensors and actuators will not have their theoretical values, but will be slightly misaligned with respect to them, mainly because of the mechanical tolerances of the materials. To understand this and its implications conceptually, we will take an example where the Star Tracker is misaligned at about 1 degree w.r.t. its mounting configuration (the Star Tracker orientation in the SBC as the ADCS Computer thinks it is like) Moreover, we will assume that that we are only performing 3Axes Wheel control, at nadir pointing and all the wheels are actually perfectly aligned with the SBC axes.
+\begin{enumerate}
+	\item The ADCS will always try to point the most accurate sensor, perfectly. This means that even if this is not the case, the ADCS will try to command the orientation of the satellite, in such way so that the Star Tracker will point perfectly. This, in a way means that the most accurate working sensor will ``define'' the SBC. 
+	\item In the relative pointing requirements, mounting misalignments can have a non-negligible effect, because. In the nadir pointing example, the satellite thinks it is in Nadir pointing, however, it is not, and we can imagine that its actual orientation is 1 degree shifted w.r.t. the nadir pointing. Now lets say that we command the satellite to perform a yaw rotation, around its long axis. Simplistically, the ADCS will assume that it only needs to power on the Z axis reaction wheel. One would expect that the measured Earth elevation caused by this operation will remain constant, but this will not be the case, as the satellite will rotate about its tilted axis, and not its assumed one. Of course, when an actual ADCS sees this change, it will correct it by also powering on the other Reaction wheels - to correct for the observed change, however this procedure (that will happen during all control loops) will induce some errors - and thus some relative pointing errors.
+	\item To understand this better, we can also think the example of perfect mounted sensors, and misaligned reaction wheels. Lets say also now we would like to perform a yaw angle rotation, and the ADCS fires only the Z reaction wheel. The sensors will observe that the change in the satellite's orientation is not the expected one, because it will be about the actual reaction wheel axis - and thus the ADCS will have to perform corrections in the control loop.
+\end{enumerate}
+
+\subsubsection{Implications on the Misalignment}
+\label{estimation}
+
+In the \cref{sec:adcs_mounting_configuration}, we saw that we are defining the SBC with respect to the Actuators and Gyroscopes, and we can only choose one SBC axis for each of them. For the sensors, like the Star Tracker, we can be more flexible, and choose any Euler Angle triad set to define its mounting orientation. Of course, by the CAD and design of the satellite, we can easily find the Mounting Configurations for all the sensors and actuators, but what about misalignments? What if the Sensors are not exactly where we think they are? To answer this, lets first take a quick look at the Estimator Configuration, and the Noise the ADCS Computer is attributing to each sensor. This is a parameter we can change - we do not know exactly how it is used but it seems safe to assume that it is some kind of weight function that is attributed to each sensor measurement, for the final estimation. The noises are:
+
+\begin{itemize}
+	\item
+	Magnetometers: $0.001$
+	\item
+	Sun Sensor and Horizon Sensor: $0.0001$
+	\item
+	Star Tracker $10^{-8}$
+\end{itemize}
+
+It is obvious that since the Star Tracker is by far the most accurate sensor, at any given time when the Star Tracker can produce valid measurements, this will define the SBC, or to call it otherwise an Estimated SBC. This has also been shown in CubeADCS simulations
+performed by D2S2. The above is helpful for us for 2 reasons:
+
+\begin{itemize}	
+	\item We do not really care to characterize neither the Star Tracker, neither the ATLAS terminal with respect to any ADCS component - the knowledge of the misalignment between the 2 is enough, because as we said the Star Tracker "defines" the SBC, or to put it differently the Star Tracker is the main instrument that will create accurate enough Estimations for the SBC, especially during an optical pass.
+	\item We can tackle the misalignment between the 2 by changing the Mounting Configuration of the Star Tracker - and only the Star Tracker. Such a change will change the SBC in such way, so ATLAS pointing direction is exactly on the +Z axis. As we will see below there is a much easier way to tackle the misalignment, however it will become clear why this method will probably be necessary.
+\end{itemize}
+
+
+
+
+
+
+
+\section{Misalignment Usage}
+\label{sec:misalignment_usage}
+The goal of this Section is to understand how do we plan to use the measured ATLAS terminal misalignment (measured either on Earth, either in orbit) in our ADCS configuration. Of course, this misalignment will affect only the ADCS configuration, and not the ATLAS terminal.
+Initially we have to remember how do we define the Satellite Body Coordinate System of the ADCS (\cref{ssec:adcs_sbc_again}), a few details of the ADCS estimation (\cref{sec:adcs_estimation_practice}), and then we will explore the possible control modes for ground tracking, and finally understand how the misalignment is going to be handled.
+
+
+
+\subsection{Two Ground Tracking Control Modes}
+\label{ssec:adcs_groudn_tracking_conmodes}
+TODOISCONFIDENTIAL
+We will briefly talk about the 2 main control modes that will be used during our optical passes, and make a performance comparison between them. These control modes can potentially use all sensors - as we want to configure them. The Star Tracker is the only PeakSat sensor that can track the ground with enough accuracy to achieve the optical pass pointing requirements.
+
+\paragraph{ConTgtTrack}
+It is a control mode to track a specified ground target by pointing the +Z SBC axis to it, and uses only the Reaction Wheels as actuators. As we can see in \cref{fig:adcs_tpe_str_from_d2s2} that the absolute pointing error for this control mode reaches $0.04 \degree$, at a noiseless scenario.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/adcs_tpe_str_from_d2s2.png}
+	\caption{Example Target Pointing Error when the Star Tracker, and ConTgtTrack is used.}
+	\label{fig:adcs_tpe_str_from_d2s2}
+\end{figure}
+
+\paragraph{ConGndTrack}
+It is a more flexible control mode that can track a specified ground target by pointing a user configured SBC vector to the target. It uses both Reaction Wheels and magnetorquers as actuators. In \cref{fig:adcs_tpe_vec_from_d2s2} we can see an example of ConGndTrack pointing error, where the +Z axis is pointed to the ground (should be equivalent with the example above). We can see that the absolute pointing error reaches a maximum of 0.16 degrees, in a noiseless simulation scenario.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/adcs_tps_vec_from_d2s2.png}
+	\caption{Example ADCS Target Pointing error, when ConGndTrack is used.}
+	\label{fig:adcs_tpe_vec_from_d2s2}
+\end{figure}
+
+\paragraph{Comparison of Control Modes}
+
+We saw in \cref{fig:adcs_tpe_str_from_d2s2,fig:adcs_tpe_vec_from_d2s2} the difference in pointing performance of 2 possible control modes. We can also see the relative pointing errors of the ADCS in \cref{fig:adcs_los_error_pass}. In the beginning of the ADCS configuration, we were thinking that any possible measured misalignment can just be put as a SBC target tracking vector into the ADCS and use ConGndTrack. This is indeed simple, however as we can see GndTrack performs quite worse that TgtTrack. This result is amplified in scenarios where misalignments are added to the components mounting configurations. Why this is the case is not exactly clear to us as the exact algorithms each control mode uses are a black box. In any case, simulations show that, using GndTrack, even in a perfect scenario we are marginally reaching our pointing performance requirements so using ConTgtTrack seems like an only way road.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/adcs_los_error_pass.png}
+	\caption{Example an ADCS LOS error, for a specific target pointing control mode.}
+	\label{fig:adcs_los_error_pass}
+\end{figure}
+
+
+
+\subsection{Can we Trust the simulations?}
+\label{ssec:adcs_trust_simulations}
+
+Considering we are about to make several decisions regarding the misalignment usage based on some simulation results, we would like to close this Section (and this Chapter in general) by generally discussing about them. We have a mission that requires very precise pointing performance, and we are using a 3rd party ADCS that runs proprietary algorithms - and a simulation software that is also using proprietary algorithms. Moreover, many of the above results and conclusions have changed in the past year, while we are learning more about how to operating the ADCS, and diving deeper into its details - so this is also expected to happen in the future. However, most of our tiny experience comes from simulations, and it is worth asking, can we trust them?\\
+\textbf{The short answer is: Maybe.}\\ Maybe it is best to first look at our beard, and, and indeed many mistakes that have been done (and many that we probably have not found yet) are because our inexperience. 
+
+However, we can still identify some major limitations in our ADCS simulations. One, is that they are a black box, we only know a high level of the actual algorithms and propagations that are running. Second, each simulation has to be ran manually, and there is no programmatic interface, which means that we can not perform actual statistical analysis on optical passes. Thirdly, there is not a straightforward way to introduce bias errors and uncertainties in the simulations - so apart from tampering with the mounting configurations we have not thought of other ways to introduce errors, and all this make our results much less reliable. Also the star tracker pointing and rolling error discussed in \cref{ssec:star_tracker} do not seem to be included in the simulations. 
+
+ADCS seems to perform well within capabilities during nominal operations
+(e.g. Sun Pointing, Z-Thompson etc) however PeakSat mission, carrying an
+optical communications Payload, has very strict pointing requirements,
+and is going to test the performance of the ADCS to its limits. Details
+will matter a lot and currently many details are left unanswered, mainly
+regarding extracting reliable performance statistics. At this point,
+even though often the results do not make complete sense, what matters
+is from all the trial and error we have reached a level that when the
+time comes, we will manage to find the optimal configuration to perform
+successful optical passes. \emph{Until then, we can just hope it is
+possible.}
+
+

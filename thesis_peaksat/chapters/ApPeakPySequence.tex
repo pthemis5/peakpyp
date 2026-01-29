@@ -1,0 +1,166 @@
+\begin{lstlisting}[language=json,caption={Example of PayLoad Mode sequence format.}]
+"time": "2025-11-19T05:12:00.000Z",
+"sequence": {
+	"0": {
+		"func": "TC(11,4)(8,1)_armPayloadStateTransition",
+		"args": {
+			"application_process_ID": "OBC"
+		}
+	},
+	"20": {
+		"func": "TC(11,4)(8,1)_RequestStateChangePayload",
+		"args": {
+			"application_process_ID": "OBC"
+		}
+	},
+	"40": {
+		"func": "TC(11,4)(8,1)_adcsSetEstimator",
+		"args": {
+			"application_process_ID": "OBC",
+			"estModeMain": 6,
+			"estModeBackup": 6
+		}
+	},
+	"60": {
+		"func": "TC(11,4)(8,1)_adcsSetConMode",
+		"args": {
+			"application_process_ID": "OBC",
+			"mode": 14,
+			"magConTimeout": 0
+		}
+	},
+	"100": {
+		"func": "TC(11,4)(8,1)_payFileDelete",
+		"args": {
+			"application_process_ID": "OBC",
+			"file_descriptor": 17
+		}
+	},
+	"120": {
+		"func": "TC(11,4)(8,1)_paySetStatePrePass",
+		"args": {
+			"application_process_ID": "OBC"
+		}
+	},
+	"140": {
+		"func": "TC(11,4)(8,1)_paySetModeAsEvent",
+		"args": {
+			"application_process_ID": "OBC",
+			"mode": 2
+		}
+	},
+	"160": {
+		"func": "TC(11,4)(8,1)_setADCSUnixTime",
+		"args": {
+			"application_process_ID": "OBC"
+		}
+	},
+	"180": {
+		"func": "TC(11,4)(8,1)_reloadPmonFunctionBits",
+		"args": {}
+	},
+	
+	
+	"200": {
+		"func": "TC(11,4)(3,5)_time_based_scheduled_enable_periodic_generation_of_housekeeping_parameter_report",
+		"args": {
+			"application_process_ID": "OBC",
+			"total_structures": 6,
+			"HK_structures": [
+			"Housekeeping_Payload_Mode",
+			"Housekeeping_PayloadTemperatures",
+			"Housekeeping_ATLAS_FPGA_1",
+			"Housekeeping_ATLAS_FPGA_2",
+			"Housekeeping_ATLAS_Main_1",
+			"Housekeeping_ATLAS_Main_2"
+			
+			]
+		}
+	},   
+	"420": {
+		"func": "TC(11,4)(8,1)_paySetStatePass",
+		"args": {
+			"application_process_ID": "OBC"
+		}
+	},
+	"440": {
+		"func": "TC(11,4)(8,1)_paySetModeAsEvent",
+		"args": {
+			"application_process_ID": "OBC",
+			"mode": 3
+		}
+	},
+	"740": {
+		"func": "TC(11,4)(8,1)_paySetModeAsEvent",
+		"args": {
+			"application_process_ID": "OBC",
+			"mode": 1
+		}
+	},
+	"760": {
+		"func": "TC(11,4)(3,6)_time_based_scheduled_disable_periodic_generation_of_housekeeping_parameter_report",
+		"args": {
+			"application_process_ID": "OBC",
+			"total_structures": 6 ,
+			"HK_structures": [
+			"Housekeeping_Payload_Mode",
+			"Housekeeping_PayloadTemperatures",
+			"Housekeeping_ATLAS_FPGA_1",
+			"Housekeeping_ATLAS_FPGA_2",
+			"Housekeeping_ATLAS_Main_1",
+			"Housekeeping_ATLAS_Main_2"
+			]
+		}
+	},
+	"780": {
+		"func": "TC(11,4)(20,3)_time_based_scheduled_set_uint64_parameter_values",
+		"args": {
+			"parameterID": "OBDH_PERIODIC_2SEC_BITFLAG",
+			"new_values": 0
+		}
+	},
+	"800": {
+		"func": "TC(11,4)(8,1)_reloadPmonFunctionBits",
+		"args": {}
+	},
+	"820": {
+		"func": "TC(11,4)(8,1)_RequestStateChangeNominal",
+		"args": {
+			"application_process_ID": "OBC"
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=json,caption={Example of Updating a Parameter, changing the ADCS body Pointing Vector, and uploading a TLE to the Satellite.}]
+"time": "2026-03-05T01:22:00.000Z",
+"sequence": {
+	"-1000": {
+		"func": "just_parameters",
+		"args": {
+			"OBDH_PERIODIC_2SEC_BITFLAG":4194305
+		}
+	},
+	"-900": {
+		"func": "setBodyPointingVectorsConfigAdcsSatellite_TC[8,1]",
+		"args": {
+			"tgtTrackBodyVecX": 0,
+			"tgtTrackBodyVecY": 0,
+			"tgtTrackBodyVecZ": 1
+		}
+	},
+	"-800": {
+		"func": "adcsSetConfigOrbitSatParams_TC[8,1]",
+		"args": {
+			"ADCS_orbitEpoch": 25317.041138182871,
+			"ADCS_orbitIncl": 97.4043,
+			"ADCS_orbitRaan": 13.9987,
+			"ADCS_orbitEccen": 0.0011283,
+			"ADCS_orbitAP": 246.2691,
+			"ADCS_orbitMA": 249.74472,
+			"ADCS_orbitMM": 15.2410752,
+			"ADCS_orbitBstar": 0.00006
+		}
+	}
+}
+\end{lstlisting}

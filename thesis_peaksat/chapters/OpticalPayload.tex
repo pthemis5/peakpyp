@@ -1,0 +1,93 @@
+\epigraph{\textgreek{Ένας Λιθουανός και ο Ζέρ μπαίνουν σε ένα μπάρ. Ο μπάρμαν Άτλαντας φτιάχενι ένα κοκτέιλ και το δίνει στον Λιθουανό. Ο Ζέρ το βλέπει και ρωτάει τον Λιθουανό:
+
+- Γιά πες, πως είναι το ποτό, λέει καθόλου?
+
+- Λέει-Ζερ!
+}}{\textit{\textgreek{ανέκδοτο}}}
+
+\section{ATLAS terminal}
+TODOISCONFIDENTIAL 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{ASAP/media/ATLAS_terminal.png}
+	\caption{ATLAS terminal. Tx/Rx apperture is on the right, beacon camera is on the left} 
+	\label{fig:atlas_terminal}
+\end{figure}
+
+PeakSat will use ATLAS-1 terminal, that is an optical terminal designed by the Lithuanian start-up company Astrolight, capable of performing Free Space Optical communication from Low Earth Orbit. ATLAS terminal promises to deliver an 100 Mbps download data rate at a wavelength of $1550\pm 3 nm$, and an 1Mbps uplink data rate at a wavelength of $1535 \pm 5 nm$. The Atlas down-link laser beam will be referred to as the transmit beam, Tx, and the up-link laser beam will be reffered to as recieve beam, Rx. The optical system of the Tx consists of: 1) Laser Diode and a Single Mode Optical Fiber 2)A Signle Mode Fiber Collimator, used to parallerize the light rays 3) Fast Steering Mirror (FSM) used for precise pointing of the beam, and and 4) optical telescope used for further collimating the free space light beam. The telescope has an aperture size of 32.4 nm. (\cref{fig:atlas_terminal}, the bigger apperture on the right). The Tx is an unpolarized beam, with a power of $0.1W$ and a beam divergence of $76.5 \mu rad$ FWHM. ATLAS Rx, consists of the same components as the Tx, however, the laser light ends up in an Avalanche Photodiode (APD). In more detail, the incoming laser beam is 1) Focused through the telescope 2)Pointed with the FSM 3)Coupled to the fiber through the SM Fiber Colimator 4) Passed through a circulator 5)Detected by the APD. The Rx System can receive unpolarized light with a sensitivity of $41 \mu W / m^2$. 
+
+
+
+The smaller aperture on the right of \cref{fig:atlas_terminal} is the Beacon Camera (BC), as its main function is to detect the beacon laser that will be transmitted from the OGS location. The purpure of the beacon camera, is to determine the direction of the OGS with respect to the ATLAS terminal, with an accuracy of a few arcseconds. It consists of a) Spectral filters, with transmittance only at $808 \pm 3 nm$, b) Imaging optics, that are lenses that will focus the beacon laser light, and c) a CMOS sensor. The CMOS sensor has a pixel resolution of $1464 \times 1936$ and it's pixel size is $4.5 \mu m$. The Beacon Camera has a field of view of $2.6 \degree \times 3.4 \degree$, resulting in a pixel scale of $5''$,  and an irradiance of $0.1 \mu W /m^2$ at exposure times of $10 ms$
+
+
+
+For alignment purposes, a coordinate system for the BC needs to be defined.The  Z-axis, can be defined as the principal axis of the lens system, and x, y axes as the X-Y position of the pixels in the sensor. 
+
+Defining a coordinate system at the Tx Laser is not so straightforward. The Laser beam, is reflected to an FSM before exiting the satellite, in order to control its direction. This FSM position, and the final direction of the laser beam can be used to define a coordinate system for the laser beam. Exact representation is outside the scope of this work, as the characterization of the laser beam and the beacon camera will be done by Astrolight. 
+
+
+
+
+\section{Misalignments}
+\label{sec:atlas_misalignments}
+ATLAS consists of a Beacon Camera and a downlink laser, with an FSM that controls its orientation. The FSM zero position is at Beacon Camera pixels x = 918.1 pix / y = 804.1 pix, and all orientations coming out of ATLAS are referenced with respect to the Beacon Camera coordinates (BCC, in pixels) and this center. The conversion from pixel to orientation can be considered linear, and the pixel scale is 31.5 μrad/pixel. However, based on the ATLAS parameters file (pixel size = 4.5 μm, focal length = 143.1 mm), this conversion can be calculated as 31.3 μrad/pixel, which is a non-negligible difference, especially when several pixels are accumulated. Moreover, the BC is tilted by 11.5 degrees with respect to the ATLAS CAD Coordinate System (practically the sides of the cube). We can see this in \cref{fig:atlas_yaw_measurement}, where we had a laser mounted on a theodolite, that was approximately parallel with the ATLAS Cad coordinate system. The laser was traversing horizontally and vertically across the camera aperture, and with an exposure time of $10\,s$ produced the pictures we see.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/atlas_yaw_measrurement.png}
+	\label{fig:atlas_yaw_measurement}
+	\caption{ATLAS yaw measurement.}
+\end{figure}
+
+
+
+It will be essential useful during in-orbit misalignment characterization to know exactly the detected blob positions and corresponding FSM orientations.  
+The beacon-detected positions can be found in the parameters ``CameraBeaconCoordinatesX'' and ``CameraBeaconCoordinatesY''. Both can be obtained either from the pat.log file or from the FPGA telemetries, and they will be timestamped. Moreover, we need the orientation of the down-link laser direction. It is recommended to use the same beacon-detected position as the reference, since this is where Tx should point if there are no misalignments. If a spiral scan is performed (to characterize BC and Tx misalignments, check \cref{fig:atlas_spiral}), then ``Xpix'', ``Ypix'' will denote the offset between the beacon-detected position and the FSM orientation in pixels. If the FSM is spiraling for characterizing its misalignment with the BC , to get the Tx orientation, we will add:  ``CameraBeaconCoordinatesX'' + ``Xpix'' etc.
+
+
+Having said this, we can take the opportunity to explain how we can perform the BC–Tx misalignment characterization.  
+
+From telemetry, we have to observe that when the beacon is detected by PeakSat, the OGS cannot detect the downlink laser. We can, to some extent, rule out this being a fault of the OGS (the very famous ``chicken and egg'' problem).
+
+We decide to perform a spiral search. We configure several spiraling parameters, like the spiraling step, the spiraling period, the spiraling overlap. This will be passed on to the satellite, and during our next optical pass, we observe that we briefly see the downlink laser at time Ts.  When downloading the pat.log file from that optical pass, we will see at Ts (time should have been synced using GNSS and PPS) what the xpix, ypix values were in pat.log. These, in theory, should indicate the static BC–Tx misalignment.  If we trust these parameters, we can then set the static offset misalignment equal to the corresponding xpix, ypix values.
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/atlas_spiral.png}
+	\label{fig:atlas_spiral}
+	\caption{Example of Tx FSM Spiraling}
+\end{figure}
+
+\section{Beacon Camera Properties}
+\label{sec:beacon_camera_properties}
+The Beacon Camera receives the beacon laser. By default, when the BC detects a blob, it will crop the full-frame image to a 64×64 ROI image, with a much faster refresh rate (10 Hz full frame, 100 Hz ROI).
+The irradiance received by the beacon cannot be directly calculated. However, assumptions can be made based on maximum and mean pixel values of the camera. Moreover, hot-pixel and blob detections are performed by a proprietary algorithms incorporated into the FPGA, which finds the beacon in the image based on several factors (maximum pixel value is not one of them). As one of its key steps, the algorithm uses low-pass filtering, so hot pixels and random shot/radiation noise are not a problem. Of course, if a hot pixel exists, then maximum pixel intensity will not reflect any illuminated power; however, this does not affect the beacon detection. 
+
+We have taken several flat and dark images in different exposure times, in order to understand how to operate the BC, and its performance during different conditions. As an example, in \cref{fig:atlas_cupoff_bc_image} we present a flat image taken with the protective cup of the camera on. We observe a mostly homogeneous field, with a few hot pixels (the hot pixels are more visible in higher exposure times). It is finally worth noting that this specific image, needed approximately 6 minutes to download, and is one of our first 3 full frame images we downloaded with the BC.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/atlas_bc_capoff_image.png}
+	\label{fig:atlas_cupoff_bc_image}
+	\caption{BC image, without the protective cup on, and an exposure time of $3\,s$.}
+\end{figure}
+
+
+\section{Downlink Laser Properties}
+TODO: remove?
+Some technical properties about the down-link laser are demonstrated below, that will be very useful when assessing the optical link quality. 
+
+\begin{enumerate}
+	\item Data rate: 100 Mbps  
+	\item Modulation format: OOK  
+	\item PRBS sequence: PRBS-7, 127 bytes  
+	\item Duty cycle: 50%  
+	\item Modulation depth: >80%
+\end{enumerate}
+
+
+
+Regarding configurable parameters, the operator can control the laser output power, as well as the data transmission type (CW, modulated) based on the required need. 

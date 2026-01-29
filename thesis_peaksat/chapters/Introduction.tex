@@ -1,0 +1,160 @@
+\epigraph{\textgreek{Για να μπορέσουν να εκφράσουν την σύγχυσή τους τα άτομα που εργάστηκαν στον δορυφόρο του ΠικΣατ, σχετικά με το πώς λειτουργεί, έφτιαξαν το παρακάτω νοητικό πείραμα. Έστω ΠικΣατ αυτήν την στιγμή βρίσκεται κλεισμένος σε ένα κουτί, και είναι ταυτόχρονα σε μία κατάσταση Ζωντανός-Νεκρός, με πιθανότητα ακριβώς 50-50. Δεν μπορούμε να γνωρίζουμε τι ισχύει, μέχρι να ανοίξουμε το κουτί.}}{\textit{\textgreek{αστικός μύθος}}}
+
+
+\section{Introduction}
+\label{sec:intro_intro}
+As already mentioned, PeakSat is  3U satellite. It consists of: The On-Board Computer (OBC) and Communications board (COMMS) that are developed in-house. The platform includes a deployable UHF antenna, a GNSS antenna, that mainly interface with the Communications Board. As every satellite, it has an Electrical Power System (EPS) and Solar Panels in all the long faces. It also has an Attitude Determination and Control Subsystem, (ADCS, \cref{chapt:adcs}) and an Optical Payload (\cref{chapt:optical_payload}) that are discussed with more detail in this work. Illustrations of the above subsystems can be seen in \cref{fig:peaksat_overview,fig:peaksat_the_real}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{ASAP/media/PeakSat_overview.png}
+	\caption{Overview of PeakSat. On this picture, the beacon camera, the star tracker, and the alignment prism of the star tracker can be seen. TODO: is it OK to use this pic?}
+	\label{fig:peaksat_overview}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/intro_peaksat_real.png}
+	\caption{Fully assembled PeakSat.}
+	\label{fig:peaksat_the_real}
+\end{figure}
+
+
+The main objective of PeakSat is to perform an optical data downlink to the Holomon OGS. An optical downlink attempt is performed during an optical pass, or the point of the orbit that the satellite is visible from the OGS. More about the orbit and possible optical passes can be found in \cref{sec:orbit}. 
+
+From the platform side, a stable optical link requires a very high precision of position and orientation knowledge of the satekkute, as the downlink laser beam of PeakSat has a divergence of only about 8 arcseconds. This precision is almost impossible to reach using ADCS sensors, so in order for the downlink laser to be reliably directed to the OGS, the OGS will send a beacon laser to PeakSat. When the Optical Payload Beacon Camera (BC), detects laser, it can infer the apparent orientation of the OGS. Using this information, it can  steer the downlink laser to the desired direction, using a Fast Steering Mirror (FSM). A very artistic illustration can be seen in \cref{fig:peaksat_in_orbit}. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{ASAP/media/PAT_in_orbit.drawio(2).png}
+    \caption{Overview of PeakSat. Realistic illustration of PeakSat Point Acquisition and Tracking, where the FoV of the Beacon camera and the OGS beacon laser are visible.}
+    \label{fig:peaksat_in_orbit}
+\end{figure}
+
+
+The Beacon Laser - Beacon Camera - FSM steering loop of the down-link laser is a procedure performed by the Optical Payload Provider, Astrolight, (\cref{chapt:optical_payload}) and will not be discussed in detail. It should be obvious though, that we have to ensure that PeakSat can point the Beacon Camera face, towards the ground station with an accuracy of at least the Camera's Field of View (FoV). Moreover, for the link to be stable, the pointing drift also needs to be small.This is understandable if when we consider that there is a control loop with a finite time-step between Beacon Laser Detection and FSM steering. If into this finite time-step, the pointing drifts by an angle larger than the downlink laser divergence, then the downlink data stream will be unstable, or the link will be lost. 
+
+As we have already spoken about satellite orientation, this is completely natural to bring the ADCS into the discussion. The ADCS performs the satellite's attitude (the terms attitude and orientation will be used interchangeably throughout this text) estimation using a bunch of sensors, and controls the attitude using actuators (\cref{sec:adcs_components}). As platform integrators, we have to ensure that the sensors can provide accurate enough estimations, and also that the control algorithms can rotate the satellite adequately. We can check this, if both the absolute pointing requirement that comes from the BC FoV, and the relative pointing requirement that comes from the BC-FSM steering loop, are satisfied. This pointing performance can depend both on the hardware (sensors, actuators) used, but also in the software ADCS configuration like the control or estimation algorithms to be used, and different parametrizations that can be passed to control and estimation algorithms. At this stage, we can only assess this pointing performance through a series of simulations, so we can be ready for when actual data come, and know what to expect from different ADCS parameter sets. \textit{The ideas presented in the above paragraphs are discussed throughout this thesis in much more detail, primarily in \cref{chapt:optical_payload,chapt:adcs}} 
+
+Orientations produced by the BC, and by the ADCS will of course be expressed in their own coordinate system. Even though we can have a theoretical transformation between the 2 from the design of the satellite, mechanical tolerances will induce an error to this transformation. Bad knowledge of the ADCS orientation and Payload orientation can result to mis-pointing of the BC. Moreover, during an optical pass evaluation, we will do a post processing of the satellite telemetry, and for this we will need all orientations produced by the satellite to be in the same coordinate system with the best possible accuracy. The above are some of the reasons why we have to perform the Static Misalignment Measurement, that is explained in \cref{chapt:alignment}. 
+
+Even though the structure of the thesis has already been mentioned in \cref{sec:preface}, the after reading the above paragraphs we should understand a bit better on why the above considerations are necessary to perform a successful optical pass. We will finish, by showcasing what we already discussed in a few revision bullet-points:
+
+\begin{enumerate}
+	\item The Payload has to be pointed towards the OGS with an absolute pointing requirement, and a relative pointing requirement. 
+	\item The above requirements can be translated into performance limits for the ADCS. This performance can depend both on the hardware (sensors, actuators) used, but also in the software ADCS configuration (control, estimation algorithms, relative parameters)
+	\item We have to ensure that the ADCS performance is adequate, and that we can seamlessly refer attitude information produced by the Optical Payload to attitude information produced by the ADCS, and vice versa.
+	\item This is why examine the possible ADCS configurations we can use during an Optical Pass through meticulous simulations (\cref{chapt:adcs}) and why we perform the Static Misalignment Measurement (\cref{chapt:alignment}).
+\end{enumerate} 
+
+
+
+
+
+
+
+
+
+
+\section{Mission Objectives}
+\label{sec:mission_objectives}
+TODO: reference the PeakSat document.
+
+
+Table \cref{tab:mission_objectives} lists the primary and secondary mission objectives. We practically spoke about the primary mission objectives already in \cref{sec:intro_intro}, but here we can review them more clearly. In this thesis we will mainly present work that is related to the primary objectives 1,2,4, even though inevitably through the optical link attempts also the evaluation of Holomodas OGS will be performed. 
+
+We can take this chance to mention that one of the difficulties of the mission is that both the satellite, and the OGS will be non-validated, so it can be non trivial for the operators to decide on which subsystem needs fine tuning in a possible unsuccessful optical link attempt. It is also showcased that we need to perform the misalignment characterization (\cref{chapt:alignment}) so we can narrow down the number of failure points in the Optical pass operations. 
+
+Finally, in this work we will not explore the 2nd secondary objective, regarding indirect optical links, neither the first regarding the validation of the in-house OBC and COMMS. We will only mention that there can be several unexpected scenarios, in a satellite that tries to validate its OBC, COMMS, and Optical Payload on the mission.
+
+\begin{table}[H]
+	\caption{Mission Objectives}
+	\label{tab:mission_objectives}
+	\centering
+
+	\begin{tabular}{cp{12cm}}
+
+		\hline
+		\textbf{Number} & \textbf{Primary Mission Objectives} \\  \hline
+		1  & The mission shall achieve optical communications connection between the spacecraft in LEO and OGS in Greece \\
+		2 & Evaluate performance of the spacecraft optical terminal \\
+		3 & Evaluate performance of the Holomondas OGS \\
+		4 & Evaluate ground and space segment optical link performance under various elevation angles and weather conditions \\ \hline
+		 \textbf{Number} & \textbf{Secondary Mission Objectives} \\  \hline
+		1 & Validate in orbit university developed hardware and software \\
+		2 & Establish indirect optical link between Holomondas and another OGS \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Orbit}
+\label{sec:orbit}
+PeakSat will be in a Sun-Synchronous Orbit (SSO) at an altitude of 510km. The lift-off date will be no earlier than 29 of March 2026. An SSO orbit, is practically a type of orbit that by fine-tuning the satellite altitude (semi-major axis) and inclination the orbit plane (longitude of the ascending node) changed with approximately  $1 \degree / \, day$, or with the same angular velocity as the Earth's revolution around the Sun. This happens because to the oblateness of the Earth at the equator. At a first approximation can be modeled by assuming the earth is not a perfect sphere, but express its shape using spherical harmonics, and more specifically the J2 harmonic. More about the analytical solution of the effect the J2 perturbation has in the orbital elements can be found in \cite{fitzpatrickIntroductionCelestialMechanics2012}, and specifics about SSO orbits in \cite{curtisOrbitalMechanicsEngineering}.
+
+For practical applications, we can note the 2 main advantages of SSO orbits. Firstly, they provide global coverage, and secondly, they provide periodic eclipse periods throughout the mission. This creates a more stable environment, which simplifies the mission budgets, and operations.  
+
+\begin{table}[H]
+
+	\centering
+	\begin{tabular}{cccc}
+		\toprule
+		Parameter & Value & Alternative & Alt. Value \\
+		\midrule
+		Date & 29\,Mar\,2026 & Epoch & 26088.00\\
+		Altitude & 510 km & Semi-major axis &  6881 \\
+		Eccentricity & 0.0001 & ... & ... \\
+		Inclination & $94.4028 \degree$ & ... & ...\\
+		LTAN &  $14h \pm 1$ & RAAN &  $39.7161 \degree$\\
+		
+		
+		\bottomrule
+	\end{tabular}
+	\caption{Mapping between document sections and corresponding code}
+	\label{tab:orbit_peaksat}
+\end{table}
+
+As a final comment, we can show an intuitive way to convert between the Local Time of the Ascending Node (LTAN), and Right Ascension of the Ascending Node ($\Omega$). For a sateellite $\Omega$ denotes the angle on the equator, between the equinox position $\gamma$, and the intersection of the orbit and the equator plane that the satellites moves towards the north hemisphere. The LTAN, denotes the local time down in the earth, when the satellite crosses the equator and moves towards the north hemisphere. For SSO orbits, it is much more convenient to use LTAN, as it is a slowly varying variable, unlike $\Omega$ that changes significantly every day. To convert between the 2, we can initially imagine that on 21 of March, the Sun has a right ascension of 0 degrees. This means that a satellite with LTAN = 12, would cross the equator at a point between the line connecting the Earth and the sun. Now, if on 21 of March we change the LTAN to 14, this would add 30 degrees in the RAAN, and keeping the LTAN fixed, but moving forward 9 days in time, we add 9 more degrees to RAAN. This creates the approximate $39 \degree$ RAAN that we are seeing in \cref{tab:orbit_peaksat}
+
+\subsection{Passes}
+Finally, we show some simple orbital analysis that will also be necessary in the Optical Pass planning, and the general mission. 
+We are very interested in knowing how much times we expect to have a pass opportunity. Moreover, we are interested in the maximum altitude of each pass, because it is connected both with atmospheric loss, but also the pass duration. We perform a simple analysis (TODO add the url) where we propagate different TLEs, for the different possible launch LTANs of the satellite. Results for our analysis can be found in \cref{fig:peaksat_passes}, where in the x axis we show the possible LTAN of the satellite, and in the Y axis the maximum expected altitude. The propagation was performed using orekit (TODO: add orekit citation)
+
+
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/orbit_passes.png}
+	\caption{Expected number of passes above HolOGS, for the first week after the launch (29 March 2026), as a function of the possible Local Times of the Ascending Node. }
+	\label{fig:peaksat_passes}
+\end{figure}
+
+
+\section{Codes Used}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{llp{6cm}}
+		\toprule
+		Section & Code Repository & Short Description \\
+		\midrule
+		\nameref{sec:orbit}
+		& \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/orbits_simulations/orbit_propagations_orekit/plot_passes/plots_passes_LTAN_tleprop.ipynb}{pass\textunderscore LTAN\textunderscore tleprop.ipynb} & Simple TLE SGP4 propagation for predicting visibility windows. \\
+		\nameref{sec:orbit}
+		& \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/orbits_simulations/orbit_propagations_orekit/TLE_elements.ipynb}{TLE\textunderscore elements.ipynb} & Mean-Osculating elements transformations, and TLE generation from single point in orbit. \\	
+		\nameref{sec:adcs_coordinate_systems}
+		& \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/ADCS/optical_passes/pass_errors_from_LOS.ipynb}{pass\textunderscore LOS\textunderscore error.ipynb} & Plotting the Line of sight error drift, from line of sight error. \\
+		\nameref{sec:estec_results}
+		& \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/optical-organizational/missalignment_handling/calculate_misalignment_ESTEC.ipynb}{calc\textunderscore misalignment.ipynb} & Calculate the final vector of the Payload reflective surfaces, in the ADCS frame, using the theodolite measurements.\\
+		\nameref{sec:bc_bcrs_characterization}
+		& \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/optical-organizational/skg_alignment/00_read_images.ipynb}{00\textunderscore read\textunderscore images.ipynb} & Fit images captured with the BC and a collimated laser, and fit simple Gaussian Centroids.\\
+		\nameref{sec:input_to_adcs}
+		& \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/optical-organizational/missalignment_handling/str_mountconfig.ipynb}{str\textunderscore mountconfig\textunderscore .ipynb} & Calculating the possible Star Tracker mounting configuration to take into account the misalignment measurement. \\
+		\nameref{ap:rotation_matrices} & \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/peakpy/peakpy/transformations/rotation_matrices.py}{rotation\textunderscore matrices.py} & Defining 3D rotation transformation matrices and conversions to Euler Angles. \\
+		\bottomrule
+	\end{tabular}
+	\caption{Mapping between document sections and corresponding code}
+	\label{sec:codes_used}
+\end{table}
+
+\section{External repositories}
+python, numpy, scipy, astropy, matplotlib, plotly, pandas, os, orekit, datetime, json, 

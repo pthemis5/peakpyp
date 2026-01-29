@@ -1,0 +1,9 @@
+\section{Error propagation}
+\label{apend:error_propagation}
+All measurements are assumed to follow a Gaussian distribution, with the measurement value to be $\mu$ and the uncertainty to be $\sigma$. In the event of multiple measurements of the same value, the final probability distribution will be given by: 
+$$\overline{X} = \mathcal{N} \left(\overline{X}, \frac{S^2}{N} + \frac{\sigma^2}{n}\right)$$ 
+where $\overline{X}$ is the average of the individual values:
+$$\overline{X} = \left(\sum_i^n \frac{\mu_i}{n} \right)$$ 
+$\sigma^2$ is the measurement uncertainty, and $S^2$ is the sample variance:
+$$S^2= \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2 $$
+As it is obvious, $S^2$ is added to the standard deviation of $\overline{X}$, in order to take into account also the spread of the specific experiments. If we also assume that different measured quantities are independent with each other, and a value that we want to deduce is given by $y = f(x_1, x_2..., x_n)$ where $x_i$ are measurements, then the error of y will be propagated by the equation: $$\sigma_y^2 = \sum_{i = 1}^n \left(\frac{\partial f}{\partial x_i} \right)^2 \cdot \sigma^2_{x_i}$$

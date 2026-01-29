@@ -1,0 +1,52 @@
+\section{Rotation sequences}
+\label{ap:rotation_sequences}
+\textit{Intrinsic Rotations}: Axes of the new coordinate system are used. In a 3-2-1 rotation, first the angle gamma is applied, then beta, then alpha. Following the scipy convention, these will be denoted with capital letters ``XYZ''. \textit{Extrinsic Rotation }
+Axes of a global coordinate system are being used. Following the `scipy` conversion, small letters `xyz` will be used to show the specific rotation sequence.
+
+\textbf{Theorem:}
+Any extrinsic rotation is equivalent to an intrinsic rotation by the same angles but with inverted order of elemental rotations, and vice-versa. For instance, the intrinsic rotations $x-y'-z''$ by angles $\alpha, \beta, \gamma$ are equivalent to the extrinsic rotations z-y-x by angles $\gamma, \beta, \alpha$. A very useful link to understand the above can be found \href{https://arg.usask.ca/docs/skplatform/appendices/rotation_matrices.html}{here}.
+
+
+\section{Rotation Matrices}
+\label{ap:rotation_matrices}
+Rotations in 3 dimensions can be denoted by several representations. One of them is the rotation matrices. A rotation matrix around a specific axis defines a rotation, and it is an one-parametric function of the rotation angle. Rotation matrices around the $x, y, z$ axes of a Cartesian coordinate system can be found below. Rotation matrices can be understood more easy, if we think that they represent an extrinsic rotation sequence. 
+\begin{equation}
+\mathbf{R}_x(\theta) =
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & \cos\theta & -\sin\theta \\
+0 & \sin\theta & \cos\theta
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+\mathbf{R}_y(\theta) =
+\begin{pmatrix}
+\cos\theta & 0 & \sin\theta \\
+0 & 1 & 0 \\
+-\sin\theta & 0 & \cos\theta
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+\mathbf{R}_z(\theta) =
+\begin{pmatrix}
+\cos\theta & -\sin\theta & 0 \\
+\sin\theta & \cos\theta & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+Combining the above equations, we end up with the full rotation matrix in 3 dimensions. For example, we can denote a 3-2-1 extrinsic rotation sequence, where $\alpha, \beta, \gamma$ represent the yaw, pitch and roll respectively, with the matrix: 
+$$ R(\alpha, \beta, \gamma) = R_{z}(\gamma) R_{y}(\beta) R_{x}(\alpha)$$
+\begin{equation}
+R(\alpha, \beta, \gamma) = \begin{bmatrix}
+ \cos\beta \cos\gamma & \cos\gamma \sin\alpha \sin\beta - \cos\alpha \sin\gamma & \cos\alpha \cos\gamma \sin\beta + \sin\alpha \sin\gamma \\
+ \cos\beta \sin\gamma & \cos\alpha \cos\gamma + \sin\alpha \sin\beta \sin\gamma & -\cos\gamma \sin\alpha + \cos\alpha \sin\beta \sin\gamma \\
+ -\sin\beta & \cos\beta \sin\alpha & \cos\alpha \cos\beta
+ \end{bmatrix}
+\end{equation}
+
+
+
+

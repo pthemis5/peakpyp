@@ -1,0 +1,678 @@
+\epigraph{\textgreek{σαβουλιάζω: κάνω κάτι κατακόρυφο, ευθυγραμμίζω / καθετοποιώ}}{\textit{\textgreek{λεσβιακή λέξη}}}
+
+\section{Introduction}
+At this stage we should understand the basics terminology of Satellite Optical Terminals, and ADCS systems. We have seen that they present strict pointing requirements, that can be satisfied with correct ADCS configurations. We are now going to see how can we characterize a relative orientation between the Optical Payload and the ADCS, and this will happen with the misalignment measurement. The misalignment measurement, comes to bridge the gap between the ADCS, and the Optical Payload of the satellite. It has 2 final goals: 
+\begin{enumerate}
+	\item Quantify how the misalignment changes before and after the vibration testing
+	\item To have an initial guess of the static misalignment in orbit, before the beacon detection.
+	\item Have a coordinate system transformation matrix, from ATLAS coordinate system orientations, to the ADCS SBC (\cref{sec:adcs_coordinate_systems,ssec:adcs_sbc_again})
+\end{enumerate}
+
+During an Optical Pass, a procedure called Point Acquisition and Tracking is performed, which is practically following the satellite from the OGS with the beacon, detecting the beacon laser at the satellite and sending the downlink laser back to the OGS. There are several point of failures at this procedure, like OGS mispointing, satellite ADCS mispointing, thermoelastic misalignments induced to the satellite, uncertain orbital knowledge etc. Before the launch, it is wise to try to reduce as much as possible the uncertainties in cases that can be reduced, and the relative Optical Payload - ADCS misalignment is one of them. In this Section we are going to dive into the specific procedures of this measurement, and finally discuss the results implications on the mission planning. 
+
+\Cref{fig:alignment_overview} schematically displays the relative PeakSat components that will contribute to a successful point acquisition and tracking, and the procedures that will be used to each of them in order to characterize them. Each component and measurement method will be described in a separate section. 
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.1\textwidth]{ASAP/media/alignemt.drawio.png}
+	\caption{Overview of PeakSat components relative to alignment} 
+	\label{fig:alignment_overview}
+\end{figure}
+
+In this section we will start by mentioning the different misalignment characterizations that are being performed by our component providers (\cref{sec:on_ground_measurements}). After this, we will focus on the procedure preparation of the misalignment measurement (\cref{sec:preparation_of_measurement_procedures}). One weirdness of this preparation is that we had some gaps on exactly what equipment is provided, and how it is being used. For this reason, our actual measurement did not follow the exactly procedures described in \cref{sec:preparation_of_measurement_procedures}, but has some revisions. We decide to keep our original planning here for historical reasons, but we will explain in detail the required revisions in \cref{sec:measurement_at_estec}. Subsequently, we will explain the post processing of the data we acquired, in order to calculate the final misalignment. One of the revisions we had to do into our procedure, raised the need to perform one more complementary alignment characterization procedure in Thessaloniki, and this is explained in \cref{sec:bc_bcrs_characterization}. Finally, we briefly mention in \cref{sec:input_to_adcs} the input of our results to the ADCS, however, for a more detailed discussion the user should check \cref{sec:misalignment_usage}.
+
+It is also worth mentioning that in order to be able to perform this experiment, we have to have access to at least to sides of the Star Tracker alignment prism. For this reason, a small design change had to take place, and more details about it are in \cref{apndx:acces_prism}
+
+
+\section{On-ground measurements}
+\label{sec:on_ground_measurements}
+
+\subsection{Star Tracker with alignment prism}
+The characterization of the Star Tracker and the alignment prism is done once by the Star Tracker provider, TY-Space (\cref{ssec:star_tracker}), before integration to PeakSat, and it is provided to us in the form of a rotation matrix. The characterization will take place using a Star Field simulator.
+
+\subsection{Astrolight pointing maps}
+The Astrolight pointing maps will provide a correlation between a detected position in the sensor of the Beacon Camera and the output direction of the Tx Beam - that is controlled by the FSM. More information can not be provided here, as the detailed procedures are protected by an NDA.
+
+
+\subsection{Star Tracker Prism to Beacon Camera}
+Accurate measurement of the relative orientation between the star tracker and the beacon camera is necessary to achieve and maintain a stable optical link (\cref{fig:peaksat_overview}). This misalignment is called static misalignment (from now on it will be referred as SM), and mainly depends on the mounting of the different optical components on PeakSat. SM is expected to remain constant during the mission, in contrast with dynamic misalignments, like thermal ones, that will change with the passage of time, probably also in short timescales. SM is expected to change only during the Vibration Test and the Launch.
+This is the main purpose of this Section, and has a goal to measure \textbf{the relative misalignment between the STR alignment prism, and the ATLAS beacon camera}, as we will explain in detail in the following Sections
+
+
+
+
+\section{Preparation of Measurement Procedures}
+\label{sec:preparation_of_measurement_procedures}
+\subsection{Static misalignment targets}
+\label{ssec:sm_targets}
+The on-ground SM characterization will take place before and after the EVT, and more specifically before and after the Vibration Testing. As already mentioned, the direct outputs of the SM measurement should be:
+
+\begin{itemize}
+	\item To have an estimation of what variation should we expect to have due to the launch vibration.
+	\item Have a coordinate system transformation matrix, from ATLAS coordinate system orientations, to the ADCS SBC (\cref{sec:adcs_coordinate_systems,ssec:adcs_sbc_again})
+\end{itemize}
+
+Moreover, as said before, the SM is expected to also change during launch. This means that exact prior knowledge of the SM angle in-orbit is not possible.  The static misalignment should be measured with an angle with uncertainty less that $0.1 \degree$, or that comes from the $5 \%$ of the FSM steering range.  
+
+
+
+\subsection{Equipment}
+\label{ssec:equipment}
+The minimum necessary equipment: 
+\begin{itemize}
+    \item \textbf{2 autocollimating theodolites}: At least one of them should have a \textbf{laser} (preferably at about 625 nm, but this can be discussed) aligned or characterized with the autocollimator main axis. Both theodolites will have to have the freedom of \textbf{transverse, and rotational} movement.
+    \item \textbf{Mounting Jig, that PeakSat can be safely placed on.} 
+    \item Electrical GSE to control PeakSat (umbilical cable, control board) and operate the beacon camera.
+\end{itemize}
+
+
+
+
+
+\subsection{Measurement Overview}
+
+\label{sec:summary}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{ASAP/media/alignment_peakSat_TSTP_boring.drawio.pdf}
+    \caption{Overview of PeakSat aligment procedure} 
+    \label{fig:alignment_overview_peaksat}
+\end{figure}
+
+The alignment procedure will be as follows:
+\begin{enumerate}
+    \item Refer one theodolite with the beacon camera axis, that is explained in detail in \cref{ssec:al_theodolite_beacon_camera}
+    \item Refer the other theodolite with the 1 side of the alignment prism, as explained in \cref{ssec:align_theodolite_star_tracker}
+    \item Auto-refer the theodolites, in order to calculate the angle $\theta_t$ that is the angle between one side of the star tracker alignment prism, and the beacon camera axis. This is explained in \cref{ssec:autoreferring_theodolites}
+    \item Rotate the satellite, and repeat steps 1,2,3 for one more side of the STR prism. More about having line of sight access to the sides of the alignment prism can be found in \cref{apndx:acces_prism}
+    \item Calculate the final misalignment, as explained in \cref{sec:estec_results}
+\end{enumerate}
+
+
+
+
+\subsection{Expected Results}
+\label{ssec:final_result}
+The outcome of this experiment will be the the static misalignment of the star tracker with the beacon camera. This result can be expressed in 2 different ways - as a vector in the STR coordinate system, or as a full rotation matrix with respect to the STR coordinate system.
+
+\paragraph{Vector}: The first is to find the vector on the principal axis of the beacon camera, in the star tracker coordinate system. This measurement will have 2 degrees of freedom, as we measure a unit vector. The principal axis of the beacon camera, can be found by taking pictures, when a laser is viewed in the center of the sensor (pixel position). More about this characterization can be found on \cref{ssec:al_theodolite_beacon_camera}.
+As we can see, by this measurement, we will not measure the rotation of the beacon camera around its principal axis. This rotation can mainly be caused by the mounting of the free space optics in the ATLAS frame, and the mounting of the ATLAS frame in the PeakSat frame. The measurement of this angle has been discussed, and it is not considered necessary but it can be useful.
+
+\paragraph{3D rotation matrix}: The second way is to find the full rotation transformation between the beacon camera and the star tracker. This measurement will have 3 degrees of freedom, and it will be similar to the first way, with the addition that we will rotationally move the beacon camera theodolite, along its azimuthian axis, to measure the relative rotation of the beacon camera and the theodolite. We can choose to also make this measurement, we have secured that we can reliably perform the first one, and there is time to perform it.
+
+
+
+\subsection{Main procedures}
+\label{ssec:main_procedures}
+Theodolites are instruments that, if leveled properly, can reach a measuring angle precision of $2''$. The theodolites will be used in autocollimation mode, that would have a typical uncertainty of $5-10''$. The main SM measurement procedure will use 2 theodolites and will take place inside a clean-room. 
+We can start by placing PeakSat in on an optical bench, or on a table on an assembly jig in a sturdy way. Then, the theodolite with the collimated laser laser beam (theodolite 1), we will be aligned with the beacon camera.(\cref{ssec:al_theodolite_beacon_camera}). Then, theodolite 2 will be aligned with using autocollimation with one side of the alignment prism of the star tracker, as can be demonstrated in \cref{fig:alingment_init}. (\cref{ssec:align_theodolite_star_tracker})
+After this procedure has been completed, one of the 3 axis of the star tracker alignment prism coordinate system will have been transfered to theodolite 2, and the main axis of the coordinate system of the beacon camera to theodolite one. Afterward, by using one of the methods explained in \cref{ssec:align_2_theodolites} the relative misalignment between theodolite 1 and theodolite 2 will be measured. 
+This procedure will be repeated, characterize 2 sides of the star tracker alignment prism, because 2 of them are required to get the full static misalignment characterization. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{ASAP/media/alignment1_first_setup.drawio.png}
+    \caption{The initial position of the theodolites during alignment. Theodolite 1 on the right is pointing at the Beacon Camera, and Theodolite 2 on the lower left part of the figure is pointing at the STR alignment prism.}
+    \label{fig:alingment_init}
+\end{figure}
+
+
+
+
+
+\subsection{Aligning Theodolite with the Beacon Camera}
+\label{ssec:al_theodolite_beacon_camera}
+\paragraph{Relevant information}
+\begin{itemize}
+    \item Pixel scale of the beacon camera is approximately $6.5''$
+    \item Theodolite angle measurement precision is about $2''$ 
+\end{itemize}
+
+
+
+\paragraph{Implementation}
+\begin{itemize}
+	\item The theodolite laser, has to be either aligned, either characterized with the main axis of the autocollimator. If this is not the case a prori, it will be aligned by us. This alignment is assumed to have a precision of $10''$
+	\item For this step, a 625nm standard theodolite laser will be used. However, the option of having a back-up 808nm laser is also considered.
+	\item The beacon camera has an FoV of 2 degrees, so the theodolite will have to be positioned very precisely in order for the beam to be inside the FoV of the Beacon Camera.
+  	\item Since beacon camera has a field of view of 2 degrees if the theodolite is at a distance of 2 meters from the beacon camera, the it has to be placed within 6cm to the right position in order to be detected.
+	\item After the theodolite is positioned, it will be detected by the beacon camera, by downloading pictures from it. Determining the position of the laser in the pixels of the camera, when we have an image of the camera, is fairly straightforward:
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{ASAP/media/beacon_camera_detection.png}
+    \caption{Picture from the beacon camera, using a collimated laser source at 625 nm. The entore FoV is not shown, and we can see only a Region of Interest with dimentions 128x128 pixels.}
+    \label{fig:bc_detection}
+\end{figure}
+
+  \begin{itemize}
+  
+  \item
+    Either we can fit a PSF (that will just be a 2D Gaussian). Fitting a Gaussian this method can give better accuracy to the detected position of the laser, but it will not work if the peak is saturated. Example of fitting a 2D Gaussian to find the center of the Beacon Laser can be seen in \cref{fig:bc_detection}
+  \item
+    Define the geometrical center of the circle, by seeing the most bright pixels of the image. This should work in any case, but it is not so robust and reliable.
+  \item Astrolight said they can provide us with the detected positions of the laser in the beacon camera using their own algorithm. The risk in this method is that the laser beam might not be collimated, and it might be in a different wavelength that the BC native wavelength, so it is not guaranteed that Astrolight's algorithm will work.
+  \end{itemize}
+\item
+  If the laser beam is detected in the center of the beacon camera then the axis of the camera, is close to parallel with the axis of the laser.The main effect that can add uncertainties is the chromatic aberration of the convex lens. Theoretically the lens is designed to operate on 808nm, so pointing an 625nm laser to it will yield in some angle error. This error can be mitigated in the following way: By transversely moving the theodolite, with trial and error, we can try to ensure that we are pointing the laser in the geometric center of the beacon camera. Moreover, by rotationally moving the theodolite, we can check, if symmetrical rotations of the theodolite, with respect to the center, also have symmetrical results in the traces on the beacon camera.
+\item
+   Finally, this part will be done, as part of the 3D rotation matrix approach of \cref{ssec:final_result}. The procedure will measure the rotation of the beacon camera with respect to its primary axis. It starts by making small rotational movements of the theodolite, to see the trace of the laser detected position changes in the beacon camera sensor. (\cref{fig:f_misalignment}). This way the angle $\phi$ is calculated, that shows how much tilted will the beacon camera is with respect to the theodolite.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.46\textwidth]{ASAP/media/f_misalignment.png}
+    \caption{Representation of the beacon camera detector. Green line, that coincides with the x-pixel direction of the beacon camera $\phi$ with the theodolite tilting axis. Z axis (orange line) represents the pointing axis of the beacon camera}
+    \label{fig:f_misalignment}
+\end{figure}
+
+
+
+
+
+
+
+\paragraph{Sources of uncertainty}
+
+\begin{itemize}
+    \item
+        \textbf{Lens errors, like spherical abberation} - that is why we will have to also make some transverse movements when pointing inside the beacon camera with the theodolite, so we are actually pointing close to the center of the lens. Just to comment this will not add up the uncertainty, it will add bias. We could arbitrarily increase the uncertainty to include this bias.
+        \item
+            \textbf{Not collimated laser beam}, with a beam divergence that can reach 0.3 degrees divergence
+        \item 
+            \textbf{Saturating/damaging} the beacon camera - Saturation will affect how well we detect the position of the beacon in the CCD. I think we can live with that - Considering this is a very sensitive camera, that can detect a laser from LEO, firing a laser inside it from a distance of a few meters, could have unexpected results. We will have to make sure what is the maximum laser power that we can use, and if necessary, use the necessary filters. 
+            \textit{This will most probably will not be a problem if we use a 625 nm laser, as the filters allow a very small percentage of the light rays to pass.}
+        \item\textbf{Beacon camera pixel scale}: The beacon camera has a pixel scale of $5''$. We can use a rule of thumb, and say that we can detect the center of the centroid with an uncertainty of half the pixel scale, so $2.5 ''$.
+\end{itemize}
+\textbf{Final estimated uncertainty}: Since quantification of most of the uncertainty sources is not straightforward, we can assume that the total uncertainty will come from the detection of the centroid in the beacon camera, spurious errors like spherical aberration, with $\sigma_{cenroid} = 10''$ (double the pixel scale) and $\sigma_{abberation} = 20''$ respectively. This means that $\sigma_{bc} = 30''$ and it will denote the verticalization uncertainty. The uncertainty in measuring the angle $\phi$ of the beacon camera, can also be considered to be governed by the pixel scale, and the trail the beacon laser leaves in the beacon camera, and we assume it will have an uncertainty of \textbf{$\sigma_{\phi} = 10''$}.
+
+
+\subsection{Aligning theodolite with star tracker prism}
+\label{ssec:align_theodolite_star_tracker}
+
+
+\paragraph{Implementation}
+
+\begin{itemize}
+
+    \item
+    The main complication in this setup, is that out FOV to the alignment prism is relatively small. So, the theodolite has to be treated with extra delicacy, if we want to have a reliable autocollimation. It seems that  adequate access to both sides of the alignment prism is guaranteed. For CAD images and more detailed explanation check \cref{apndx:acces_prism}
+    \item 
+    The exact position for the theodolite also depends on the aperture of the autocollimator. Typical autocollimators, have an aperture of about 4cm. So the theodolite has to be positioned within these 4cm of the beacon camera. 
+    We use the autocollimation mode of the theodolite, to align it with the STR prism with the mirror. The exact autocollimation accuracy will of course depend on autocollimator specifications. For now we will assume $5-10''$, as a typical value.
+\end{itemize}
+
+
+\paragraph{Sources of uncertainty}
+
+\begin{itemize}
+
+\item
+  \textbf{Autocollimation uncertainty}
+\item
+  \textbf{Flatness of alignment prism}
+\item
+  \textbf{Characterization of the alignment prism with the star tracker}: This is completely out of our control, but we have to consider that the relative angles between the alignment prism and the star tracker will not be perfectly characterized, and they also may change before and after testing. We do not seem to have a way of checking this for now. (The discussion of simulating a stellar field has been raised, but it finished very quickly.)
+\item
+  \textbf{Peculiar reflections / diffraction we might have because of the small visible mirror surface, and other parts of the satellite}
+\end{itemize}
+
+\textbf{Final estimated uncertainty}: Assuming that a typical autocollimation measurement uncertainty is about $10''$, and the fact that other sources of uncertainty can not be quantified, then the final uncertainty will be considered to be \textbf{$\sigma_{autocol} = 10''$}.
+
+
+
+
+
+\subsection{Auto-referring theodolites}
+\label{ssec:autoreferring_theodolites}
+
+
+\paragraph{Implementation}
+
+\begin{itemize}
+\item By rotating the theodolites so they will autocollimate with each other's light (\cref{fig:align_final_pos2_theods})
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{ASAP/media/alignment_final_position.drawio.png}
+    \caption{Theodolites after they have rotated, and now they are in line of sight with each other}
+    \label{fig:align_final_pos2_theods}
+\end{figure}
+
+\paragraph{Mathematical angles representation}
+As an be seen in \cref{fig:align_final_pos2_theods} the theodolite azimuthian angle will be given by the relation $$a = 180 - |a_s| - |a_b|$$ where $a_s = a_{sf} - a_{si}$ is the change in angle from the initial position (\cref{fig:alingment_init}) where the theodolite is aligned with the star tracker, to the final one where the 2 theodolites have the same line of sight, and similarly $a_b = a_{bf} - a_{bi}$ for the beacon camera. 
+The angle $\delta$ would be $\delta = \delta_{si} - \delta_{bi}$. Of course since the vertical scale of the theodolite is calibrated using gravity, if the theodolites are set up correctly, there is no need for auto-referencing on these axis. Auto-referencing also on the declination axis can potentially be performed, deoending on the geometry of the problem, for completeness and confirmation of the results. If we can perform autocollimation by moving the declination axis of only 1 theodolite, then: $$\delta = \delta_{si} - \delta_{bi} = \delta_{si} - \delta_{sf} = \delta{bf} - \delta{bi}$$
+where of course the subscript b, means the theodolite that is characterized with the beacon camera, and s, the theodolite that is characterized with the star tracker alignment prism. The subscripts i and f mean initial and final.
+
+Then the angle $\theta_{t}$ (t stands for theodolites) that can be seen in \cref{fig:theta_x} are easily found by the cosine law: $$\cos \theta_{t} = \cos a \cdot \cos \delta$$. This angle represents a 3D angle of one axis of the alignment prism, to the main axis of the beacon camera. This angle can give the direction cosine of the beacon camera vector, and will be measured 2 times per experiment. More about how will we handle this measurement can be found on \cref{sec:uncertainty_propagation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{ASAP/media/theta_x.png}
+    \caption{XYZ shows the star tracker alignment cubes reference frame, the red vector shows the principal of the camera and angle $\theta_X$ (blue color) shows the 3d angle of the beacon camera vector with respect to the x-axis of the star tracker reference frame. $\theta_X$ is directly measured. In order to fully characterise this vector, also the $\theta_y$ angle is necessary, that is measured in a similar way.} 
+    \label{fig:theta_x}
+\end{figure}
+
+If we decide to make the 3D rotation measurement, we can also find the angle $\phi$ that denotes the rotation of the rotation of the beacon camera (\cref{fig:f_misalignment}) with respect to its primary direction vector. Assuming small misalignment approximation, from the geometry of the problem, it can be shown that this rotation angle $\phi$ will be $$\phi = \phi_{\alpha} - \delta_{\alpha i} = \phi_{\beta} -90 - \delta_{\beta i}$$
+Where $\alpha, \beta$ denote the measurements for the 2 sides of the star tracker. The fact that we can measure the same angle twice, can work as a validation of our result.
+
+
+
+
+\paragraph{Sources of uncertainty}
+
+\begin{itemize}
+\item
+  \textbf{Theodolites Angular measurement precision} $2''$ each
+  \item
+    \textbf{Theodolite autocollimation uncertainty}, we do not know yet, but we will assume an angle of $10''$
+\item
+  \textbf{Non-perfectly flat theodolites with respect to gravity}, that we assume it adds an uncertaitny of $10 ''$
+
+\end{itemize}
+
+From the initial position of the theodolites, to the final one, the uncertainty in the angle measurement will contain all the above uncertainties. For now we do not know how to validate the flatness of the theodolites, and what the uncertainty would be, so we can arbitrarily assume the final uncertainty will be double the sum of the 2 first uncertainties, meaning:
+$$\sigma_{\theta_{t}} \approx 30'' = 0.5'$$ 
+
+
+
+\subsection{Propagation of measurement uncertainties}
+\label{ssec:uncertainty_propagation}
+All the error propagation is done usng the RMS approach as explained in \cref{apend:error_propagation}. As discussed before, the final result should be a rotation matrix from the coordinate system of the star tracker, to the coordinate system of the beacon camera, or a vector of the beacon camera vector in the coordinate system of the star tracker. For the next session a simpler approach will be followed. First the beacon direction of the Beacon Camera vector will be calculated, and then the rotation of the beacon camera with this vector (considering that we can measure this rotation). This approach is simpler to understand, helps in calculating a relative an absolute misalignment measurement uncertainty. Also it can help in estimating any asymmetrical errors (that might come from for example not having adequate line of sight to one side of the star tracker). Finally this vector will be given as a pointing offset to the ADCS. Using the previous measurement methods, the measured results will be:
+
+\begin{itemize}
+    \item $\theta_X, \theta_Y$ that refer to the angles the beacon camera vector makes with respect to the $x, y$ axes of the star tracker alignment prism.(\cref{fig:theta_x}) These angles can be measured using \cref{ssec:autoreferring_theodolites},
+    \item The rotation angle $\phi$ of the beacon camera with respect to a vector vertical to it.(\cref{fig:f_misalignment}) This rotation angle can be obtained only through \cref{ssec:al_theodolite_beacon_camera}.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{ASAP/media/theta_x_spherical.drawio(1).png}
+    \caption{xyz is the Cartesian coordinate system of the star tracker alignment prism. ABC triangle is the spherical triangle that will be used in order to transform from the measured angles, to the coordinates to the star tracker coordinate system.} 
+    \label{fig:theta_x_spherical_triangle}
+\end{figure}
+
+
+The, the beacon camera vector in the star tracker frame of reference will be:
+
+$$\vec{R}_b = \cos \theta_X \hat{x} + \cos \theta_Y \hat{y} + \sqrt{1-\cos^2 \theta_Y- cos^2{\theta_Y}}\hat{z}$$
+
+with:
+
+$$\sigma_x = sin \theta_X \sigma_{\theta_X}, \sigma_y = sin \theta_Y \sigma_{\theta_Y}$$
+
+$$\sigma_z = \sqrt{\left(\frac{\sin(2 \theta_X)}{2z} \right)^2\sigma^2_{\theta_X} + \left(\frac{2\sin(2 \theta_Y)}{2z} \right)^2\sigma^2_{\theta_Y}}$$
+$\vec{R}_b$ is also the vector that will  be given to the ADCS as an offset.
+Using this vector, and calculating the dot product with the $z$ axis, we find that the absolute misalignment angle will be 
+
+$$\omega = \arccos (\sqrt{1-\cos^2 \theta_X - cos^2{\theta_Y}})$$
+and the uncertainty in this measurement will be 
+\begin{equation}
+\label{eq:error_full}
+\sigma_\omega = \frac{1}{z \sqrt{2} \sqrt{1-z^2}}\sqrt{\sin^2(2 \theta_Y) \sigma^2_{\theta_X}+ sin^2(2 \theta_Y)\sigma^2_{\theta_Y}}
+\end{equation}
+(the above equations are prone to have numerical errors, and will be rechecked several times before their application)
+Of course, due to the discontinuity of the $\arccos$ function for $z = 1$, the above uncertainty equation does not hold, if $\theta_x =0$ or $\theta_y = 0$. The above relationship is not very intuitive, mainly because as $\theta_x, \theta_Y$ approach to $90 \degree$, then the denominator approaches to zero.
+
+For that reason, when trying to model and estimate the uncertainty of our measurement, we will use the much simpler RMS approach:
+\begin{equation}
+\label{eq:aprrox_error}
+\sigma_{\omega} \approx \sqrt{\sigma^2_{\theta_X} + \sigma^2_{\theta_Y}}
+\end{equation}
+
+
+
+\subsection{Expected Measurement Uncertainty}
+\label{ssec:uncertainty_requirements}
+\cref{eq:aprrox_error} gives an estimation for the uncertainty of the SM between the Star tracker BC alignment prism, and the beacon camera. This equation is much simpler to use for making assumptions. Using \cref{eq:aprrox_error}, we see it only depends on the $\sigma_{\theta_X}, \sigma_{\theta_Y}$ angles and not on $\phi$ as expected. Considering that the same method is going to be used in order to measure $\theta_X, \theta_Y$ it is safe to assume that they will present the same uncertainties. 
+
+
+Also, the total uncertainty of $\theta_X, \theta_Y$ of the proposed experimental setup will consist of:
+
+\begin{itemize}
+    \item Autocollimation uncertainty of Theodolite 2 with star tracker alignment prism, that has a value of $10''$ (\cref{ssec:align_theodolite_star_tracker})
+    \item Uncertainty in aligning 625nm laser with beacon camera that has a value of $10''$. (\cref{ssec:al_theodolite_beacon_camera})
+    \item The uncertainty of parallerization of the 625 nm laser and the beacon camera.
+    \item The uncertainty in autocollimating the 2 theodolites, that is assumed to have a value of $20 ''$
+    \item The Uncertainty in the flatness of the 2 theodolites, that has a value of $10 ''$
+
+\end{itemize}
+
+
+The above uncertainties are summarized in the following \cref{tab:all_uncertainties}
+
+\begin{table}[H]
+	\centering
+	
+	\begin{tabular}{lcccl}
+		\hline
+		Procedure & Unc. Source & $'' , 1 \sigma $ &$'', 2 \sigma$\\ \hline
+		
+		Theodolite 2 - Aligmnet Prism & Autocollimation unc. & 10 & 20\\ \hline
+		Theodolite 1 - Beacon Camera & Detection of Laser Centroid & 30 & 60 \\ \hline
+		Autocollimator and Laser & Mechanical & 10 & 20\\ \hline
+		Autocollimating Theodolites & Autocollimation unc. & 20 & 40 \\ \hline
+		Flatness of Theodolites & Calibration & 10 &20 \\ \hline
+		\textbf{1 angle RMS} & - & 29 & 58 \\ \hline
+		\textbf{Total (RMS)} & - & 41 & 82 \\ \hline
+		
+		
+		Yaw angle of the BC & Detection in the Laser Centroid & 10 & 20 \\ \hline
+		
+		
+	\end{tabular}
+	\caption{Misalignment error propagation. Note that the yaw angle of the Beacon Camera is not taken into account in the final uncertainty, as it is independent of the measurement.}
+	\label{tab:all_uncertainties}
+\end{table}
+
+Now, if $50 \%$ measurement margin is included, and $50 \%$ total margin is added, then the total uncertainty will be 
+
+\begin{equation}
+\label{eq:predicted_uncertainty}
+\sigma_{predicted} \approx 4' (2 \sigma)
+\end{equation}
+
+Comparing the required and the final measured misalignment, we can deduce that theoretically, the current measurement setup if capable of measuring the relative misalignment with the necessary accuracy. 
+
+
+
+
+\section{Measurement at ESTEC}
+\label{sec:measurement_at_estec}
+TODO: should i add any pictures, or it is confidential from inside ESTEC?
+
+The Misalignment characterization measurement was performed before the vibration testing, and after the vibration testing, in the Metrology Lab at ESTEC, in the Netherlands. We will explain both measurements separately. 
+
+Before this, we will mention one big change that we did not include in our main procedures.\textbf{ A theodolite autocollimation takes place in Phase 1, and Phase 2}. In phase one, the theodolite is autocollimated with the reflective surface as explained in \cref{ssec:align_theodolite_star_tracker}. The results are saved at this point, and then, a button is pressed at the theodolite, that rotates both axes by $180 \degree$. This points the theodolite approximately at the same orientation as before, with a small deviation from the initial autocollimation. If this deviation is fixed, then the results are taken again. The difference between the 2 calculated vectors, is the measurement uncertainty. 
+
+\subsection{Pre-Vibe Measurement}
+Into the first alignment measurement, that was also the first time we were using the necessary equipment, came will problems, but was after all partially successful Initially, in our procedures preparations, it was assumed that both theodolites will be movable, so we can autocollimate with the Star Tracker (STR) prism, and the BC. However, when we arrived at the facility, it was clear that one theodolite was fixed at a point, and we had to move/rotate the satellite.\footnote{It is worth mentioning that this was not actually True, and the Theodolite that was considered fixed, could actually move transversely, however there was not trained stuff in the laboratory during out attempt to let us know about it.} Moreover, after some hard trial and error, we found out that the theodolite laser which we were expecting to detect with the BC, was not detectable (Because, as we mentioned the BC has a $808 \pm 5$ bandpass, and the laser was at $670\,nm$). So the procedure was modified as follows:
+
+\begin{enumerate}
+	\item Collimate with one side of STR MC with the ``Fixed theodolite'', as explained in \cref{ssec:align_theodolite_star_tracker}, while moving the satellite, and keeping the theodolite fixed.
+	\item Collimate with the reflective surface of the BC, as explained again in \cref{ssec:align_theodolite_star_tracker}, keeping the satellite still, and moving the ``Movable theodolite''.
+	\item Auto-refer the theodolites, as explained in \cref{ssec:autoreferring_theodolites}.
+	\item Change the Satellite Orientation, so the other side of the MC is visible through the ``Fixed theodolite'', and repeat the above steps.
+\end{enumerate}
+
+In the addition to the draw-backs mentioned above, a height adjustment jig that was supposed to lift the satellite failed, and while attempting to perform step 1, we moved the satellite so high, so the movable theodolite could not go so high. The actual measurement, took place in our last 3 hours at the facility, so we only measured the Beacon Camera Reflective Surface (BCRS) in the SBC coordinate system.
+
+
+\subsection{Post-Vibe Measurements}
+During our second visit, things went much more smoothly regarding the measurement. The first thing we noticed, was that the previously ``Fixed'' theodolite, was now movable \footnote{Even though in our notes we kept referring to it as fixed.}! Moreover, the mounting jig of the satellite was significantly more stable, and when we also encountered the problem that the movable theodolite could not go as high as necessary, it was lifted up by the laboratory stuff. We performed exactly the same steps explained in the previous Section. However, this time we also measured the reflective surface of the transmit laser (TxRS) in the SBC coordinate system, and repeated the measurement once. In a course of $1.5\,d$ we measured the BCRS vector in the SBC twice, and the TxRS vector also twice. 
+
+
+
+\section{ESTEC results}
+\label{sec:estec_results}
+In \cref{sec:preparation_of_measurement_procedures}, we presented our preparation for performing the misalignment measurement, and in \cref{sec:measurement_at_estec} we outlinled the changes in the procedures. It should be obvious by now that the ATLAS - ADCS rotation matrix can not be measured, but only the BC vector in the SBC frame. In this Section we will show the analysis we did on the theodolite measurements. This calculation is performed in \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/optical-organizational/missalignment_handling/calculate_misalignment_ESTEC.ipynb}{calc\textunderscore misalignment.ipynb}.
+\paragraph{Definitions}
+
+
+\begin{itemize}
+	\item The 2 theodolites will be reffered as fixed, and movable. The fixed theodolite is always auto collimating with the Mirror Cube of the Star Tracker, and the movable one with the reflective surface of the Beacon Camera.
+	\item The superscript will denote with respect to which coordinate system this vector is being calculated to. For example $R^m$ is a vector measured in the moving theodolites coordinate system.
+	\item
+	  CS -> Coordinate System
+	\item
+	  MC -> Mirror Cube
+\end{itemize}
+
+\paragraph{Coordinate Systems}
+The transformation from unitary spherical coordinate system, to a Cartesian is necessary, in order to transform the theodolite measurements to vectors, and auto-refer their coordinate systems. The theodolite is measuring the Horizontal ($\theta$) angle counter clockwise, so to transform to a right hand Cartesian system we will use the usual spherical to orthogonal equations:
+
+\begin{itemize}
+\item $x = \sin \phi \cos \theta$
+\item $y = -\sin \phi \sin \theta$
+\item $z = \cos \phi$
+\end{itemize}
+
+
+
+
+
+\paragraph{Calculating Vectors}
+
+\begin{itemize}
+\item A vector will be calculated by using a combination of Phase 1 and phase 2 measurements. Phase 1 measurements explain the relative angle of the Beacon Camera, with respect to the Side of the Star Tracker prism that is oriented towards the star tracker, and Phase 2 refers to measurements taken with respect to the sun sensor side of the Star  Tracker prism.
+\item Initially, 2 vectors will be calculated using the above equations, one for phase 1, and one for phase 2. Then, the average vector will be the measured vector.
+\item The uncertainty in each XYZ coordinate will be the half-difference in each coordinate.
+\item  Even though the uncertainty can more easily be calculated in angles (as this is how the theodolite measures), we prefer to denote the uncertainty in vector components, because denoting angular uncertainty will require to perform more complicated equations that include trigonometric, inverse trigonometric functions and their derivatives in uncertainty propagation.
+\item Uncertainty propagation in vectors is fairly simple and less prone to errors. We will do it by the root of the square sum.
+\end{itemize}
+
+\subsubsection{Transforming Vectors}
+
+
+\begin{itemize}
+
+\item We will have to transform vectors from one theodolite coordinate system, to the other, and ore specifically from the moving to the   fixed one. This means we will have the Camera Vector in the Star Tracker Mirror Cube Vector.
+\item When transforming, we have to keep in mind, that if $\hat{z}$ is the vertical unit vector of each theodolites coordinate system, then $\hat{z}^m = \hat{z}^f$, because the theodolites have been leveled with gravity.
+\item Any vector at the moving theodolite CS, can be transformed to the fixed theodolite CS by the equation $\vec{R}^f = R_z(\theta) \vec{R}^m$ where A is a 3x3 rotation matrix, that will have the form: $$R_z(\theta) = \begin{bmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
+\item When the theodolites are referring with each other, we will measure $\vec{v}^m_m$ that is the moving theodolite auto-referring vector in the moving theodolite CS, and $\vec{v}^f_f$ that is the fixed theodolite auto-referring vector in the fixed theodolite CS.
+\item From the geometry of the problem, we can easily infer that when the theodolites are looking at each other, the moving theodolite  auto-referring vector in the fixed theodolite CS, will be the opposite of the fixed theodolite auto-referring vector in the fixed theodolite CS, or $$\vec{v}^f_m = - \vec{v}^f_f \space (1)$$
+\item $\vec{v}^m_m$ will be transformed to the fixed theodolite CS with the equation: $$\vec{v}^f_m = R_z(\theta) \vec{v}^m_m \space (2)$$
+\item By using equations (1), (2) we get: $$-\vec{v}^f_f = R_z(\theta) \vec{v}^m_m$$
+\item If we denote with $c \equiv \cos \theta$ and $s \equiv \sin \theta$, we get the 3 following equations:
+  \begin{itemize}
+  	\item $-v^f_{fx} = c \cdot v^m_{mx} - s \cdot v^m_{my}$
+  	\item $-v^f_{fy} = s \cdot v^m_{mx} + c \cdot v^m_{my}$
+  	\item $-v^f_{fz} = v^m_{mz}$
+  \end{itemize}
+\item The first 2 equations make a linear system with 2 unknowns, that can be solved. By solving it we can calculate the angle $\theta$ and the final rotation matrix to transform between one theodolite CS and the other
+\item The 3rd equation, is a measure to how accurate our leveling was. The difference in the 2 vectors ($v^f_{fz} + v^m_{mz}$) will be added as an extra uncertainty to our calculations.
+\end{itemize}
+
+\paragraph{Calculating BC vector and misalignment}
+Now that we have the rotation matrix to transform from one theodolite CS to the other, we can easily Transform the BC vector from the movable theodolite CS, to the fixed one. At this point we have the MC vector and BC vector in the same CS. Using a simle dot product we can find the relative angle between them. This practically leaves us with 2 cones (see \cref{fig:al_post_cones_example}), and we can find their intersection with positive Z, to find the BCRS (or TxRS) vector in the MC coordinate system (simple linear system with 2 independent equations and 2 unknowns). This can be transformed to the SBC by applying the MC to STR transformation, and then STR to SBC.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/al_post_cones_example.png}
+	\caption{The intersection of the cones is the final vector we are looking for.}
+	\label{fig:al_post_cones_example}
+\end{figure}
+As an example, previous to Vibration, only the BCRS vector with respect to the SBC was measured, and can be seen in \cref{fig:al_post_cones_example}. The cones are: 
+
+\begin{itemize}
+\item Cone1 (STR Side) = $90.1324\pm 0.007 \degree$
+\item Cone2 (SS Side) = $87.7922 \pm 0.008 \degree$
+\end{itemize}
+
+And the final vector in the SBC can be plotted in \cref{fig:al_post_calculated_vector}. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/al_post_calculated_vector.png}
+	\caption{Example of Calculated Vector from the alignment measurement.}
+	\label{fig:al_post_calculated_vector}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width = 0.8\textwidth]{images/al_projection_xyvectors.png}
+	\caption{All measured vectors in the ADCS coordinate system, with only their XY coordinates plotted.}
+	\label{fig:al_projection_xyvectors}
+\end{figure}
+
+Before and After Vibration, we calculated the vectors using exactly the same procedure. The full results of the final measured vectors of both the BCRS, and the TxRS can be found in \cref{tab:measured_vectors}, and the projection of their X, Y coordinates in \cref{fig:al_projection_xyvectors}.  As a conclusion, we see that the change between the BCRS vectors before and after vibe is less than 0.011 degrees - which is much less than the 2 degrees field of View of the Beacon Camera. 
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lccc}
+		\hline
+		Configuration & $x$ & $y$ & $z$ \\
+		\hline
+		Pre-VibeBCRS     & -0.00114 & -0.00810 & 0.99997 \\
+		Post-VibeBCRS    & -0.00106 & -0.00828 & 0.99997 \\
+		Post-VibeBCRS2   & -0.00113 & -0.00830 & 0.99997 \\
+		Post-VibeTxRS    & -0.00107 & -0.00709 & 0.99998 \\
+		Post-VibeTxRS2   & -0.00115 & -0.00713 & 0.99998 \\
+		\hline
+	\end{tabular}
+	\caption{Unit Vectors of BCRS, and TxRS.}
+	\label{tab:measured_vectors}
+\end{table}
+
+
+
+
+
+\section{BC-BCRS Characterization}
+\label{sec:bc_bcrs_characterization}
+
+After measuring only the vector of the Beacon Camera Reflective Surface, and not the sensor, it became obvious that we should have a way to characterize both to some extent. We are going to explain the procedure to do this very briefly, as it had relatively high uncertainty. For this we used a laser collimator, primarily used to align telescopes. The goal is to make the collimator vertical with the BCRS, and then capture images, detect the laser at a X, Y position in the BC, and estimate the relative misalignment between the 2. It is finally worth noting that this was done before, and after vibration also. 
+
+
+The collimator used can be placed vertically with a reflective surface, by seeing the reflected laser go through the transmission hole. The uncertainty in this verticalization (collimation) depends on the distance of the collimtator to the reflective surface, and the whole diameter. In our case:
+
+\begin{itemize}
+	\item Distance: 1.4m
+	\item Whole diameter: 3mm
+	\item Thus, the collimation uncertainty is $3.5'$, which is of course much higher than the measurement we performed at ESTEC.
+\end{itemize}
+
+The setup can be seen in the \cref{fig:skg_alignment_setup,fig:skg_alignment_collimator_setup}. In the right we can see the collimator mounted on the theodolite. The theodolite is used in order to make small angular measurements of the collimator. We have opened the ATLAS BC cover, in order to capture images. The images are downloaded and analyzed in the laptop via the SPI connector.
+
+
+\paragraph{Beacon Camera}
+
+\begin{itemize}
+	\item The total Resolution is (1464, 1936) px.
+	\item The sensor middle is at: (732, 968) px.
+	\item The camera pixel scale is $4.5''$ 
+	\item The FSM zero is at: (807, 916) px.
+\end{itemize}
+
+
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/skg_alignment_setup.png}
+	\caption{Image acquisition setup.}
+	\label{fig:skg_alignment_setup}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/skg_alignment_collimator_setup.png}
+	\caption{Image acquisition setup.}
+	\label{fig:skg_alignment_collimator_setup}
+\end{figure}
+
+
+
+
+
+In total we captured 12 images, during the pre-vibe measurement, and 22 in the post vibe measurement. For all of them, we changed the lateral position of the reflected ray. We do not have any way to measure where exactly on the BCRS the ray was incident to, but by eye we can make an estimation on where we see it. This is very important, as it will answer the question, weather the detected position depends on the incident ray beam position. An example of a capture image is \cref{fig:skg_atlas_image_example}.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/skg_atlas_image_example.png}
+	\caption{Example of image taken with ATLAS BC, and light from the laser collimator.}
+	\label{fig:skg_atlas_image_example}
+\end{figure}
+
+
+To detect the centroid of each laser blob, we individually fitted each image with a Gaussian.In the \textbf{Pre-Vibe} measurement, the maximum absolute distance of the furthest centroids is 33px, which translates into $2.5'$, and the centroid $1 \sigma$ is approx 15px, or $1'$. In the \textbf{Post-Vibe} the maximum absolute distance of the furthest centroids is 35px, which translates into 2.5'. Results of the fitted optical centers, can be viewed in \cref{fig:skg_al_pre_post_vibe_results}.
+
+
+
+\begin{figure}][H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/skg_pre_post_vibe_result.png}
+	\caption{Comparing the measurement results before and after the vibration testing.}
+	\label{fig:skg_al_pre_post_vibe_results}
+\end{figure}
+
+
+
+
+
+\subsection{Conclusions}
+
+
+We find that the \textbf{pre-vibe} center of the position (767, 985) $\pm$ (14, 17). The \textbf{post-vibe} detected center of the position is (771,989) $\pm$ (13, 15) and they are in very well agreement to each other. 
+
+We were able to characterize the misalignment between the BC, and BCRS, with an uncertainty of $1'$ , and we found a misalignment of $6'$, which is within the expected misalignment tolerance.
+
+
+
+\section{Input to the ADCS}
+\label{sec:input_to_adcs}
+The information, we have gathered so far, and are going to be used for finding the Beacon Camera Coordinates (BCC) and the Satellite Body Coordinates (SBC) are:
+
+\begin{itemize}
+\item The Tx RS vector in the BCC: x=918.1 pix / y=804.1 pix
+\item Beacon Camera Orientation is 11.5 degrees with respect to the ATLAS CAD. (approximate, not measured)
+\item This means, that if a BCC vector is calculated by : $$v_{BCC} = \begin{bmatrix} -(p_x - p_{cx}) \cdot p_s \\ -(p_y - p_{cy}) \cdot p_s   \\ f\end{bmatrix}$$
+\item where: $p_x, p_y$ are the pixel detected positions, and $p_{cx}, p_{cy}$ are the reference center pixels as provided by astrolight. Then, the Z axis transformation from a BCC vector to an SBC vector, is: $$R_{BCC2SBC} = \begin{bmatrix} 0.9799247 & 0.19936793 & 0 \\ -0.19936793 & 0.9799247& 0 \\ 0 &0 & 1 \end{bmatrix}$$
+\item Finally, we know the TxRS vector in the SBC (check above)
+
+\end{itemize}
+
+Combining all the above, we can find the Beacon Camera Center PixelCoordinate, into the SBC:
+
+bcCenterSbc = [-0.0009728543, -0.007455972, 0.9999717306]
+
+This, is in practice the misalignment that can be put into the ADCS body pointing vector. As has been explained, this is not prefered, so this misalignment is going to be encoded into the Star Tracker mounting Configuration.This is calculated, by finding the Rodrigues Matrix, that will rotate the Star Tracker Mounting Configuration, around the cross product axis defined by the theoretical SBC Z, and the beacon camera measured SBC Z. It is worth noting that this transformation can be arbitrary, (as it requires 3 constrains, but we have 2 from the unit vector) but we choose the one that changes the Star Tracker moutning configuration as least as possible. The new mounting configuration, will put the measured ATLAS BC central pixel, to the SBC +Z axis.
+
+As a reminder, the ideal Star Tracker mounting configurations are:\\
+Alpha (yaw): -2.5\\
+Beta (pitch): 0.0\\
+Gamma (roll): 90.0
+
+The best Star Tracker mounting configuration, in order to point the center of the BC to the ground, are:\\
+Alpha (yaw): -2.500169\\
+Beta (pitch): -0.037053\\
+Gamma (roll): 90.429225
+
+
+We close this section, by showing the 2 possible ADCS configurations, that will take into account the misalignment we have measured, and they can be compared in \cref{tab:str_mount_config}.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Comparison between 2 possible ADCS configuration for Tracking the OGS.}
+	\label{tab:str_mount_config}
+	\begin{tabular}{p{0.32\textwidth} p{0.34\textwidth} p{0.34\textwidth}}
+		\toprule
+		\textbf{Method} &
+		\textbf{Change Vector} &
+		\textbf{Change STR MountConfig} \\
+		\midrule
+		Star Tracker Mount Configuration
+		&
+		yaw = $-2.5^\circ$\par
+		pitch = $0^\circ$\par
+		roll = $90^\circ$\par
+		(the perfect mounting)
+		&
+		yaw = $-2.500169^\circ$\par
+		pitch = $-0.037053^\circ$\par
+		roll = $90.429225^\circ$
+		\\
+		\midrule
+		Control Mode to Use
+		&
+		ConGndTrack
+		&
+		ConTgtTrack
+		\\
+		\midrule
+		Target Tracking Vector
+		&
+		$\vec{BC} = (0.0067,\,-0.0253,\,0.9997)$
+		&
+		--
+		\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+

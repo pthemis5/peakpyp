@@ -1,0 +1,39 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Overview of PeakSat. Realistic illustration of PeakSat Point Aquasition and Tracking, where the FoV of the Beacon camera and the OGS beacon laser are visible\relax }}{2}{figure.caption.5}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Overview of PeakSat components relative to alignment\relax }}{2}{figure.caption.7}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Overview of PeakSat. On this picture, the beacon camera, the star tracker, and the alignment prism of the star tracker can be seen.\relax }}{3}{figure.caption.6}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces ATLAS terminal. Tx/Rx apperture is on the right, beacon camera is on the left\relax }}{4}{figure.caption.9}%
+\contentsline {figure}{\numberline {1.5}{\ignorespaces ATLAS misalignment characterization as taken from the document Astrolight presentation\relax }}{7}{figure.caption.16}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Example of Optical Payload FSM Spiraling\relax }}{10}{figure.caption.18}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces ATLAS yaw measurement.\relax }}{10}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces ATLAS capoff image exmaple\relax }}{13}{figure.caption.20}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces ADCS simulation environment, as presented in the D2S2 environment.\relax }}{19}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Example Target Pointing Error when the Star Tracker, and ConTgtTrack is used.\relax }}{22}{figure.caption.33}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Example ADCS Target Pointing error, when ConGndTrack is used.\relax }}{22}{figure.caption.35}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Example of a line of sight error of the ADCS, per 1 second.\relax }}{24}{figure.caption.39}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Overview of PeakSat aligment procedure\relax }}{26}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces The initial position of the theodolites during alignment. Theodolite 1 on the right is pointing at the Beacon Camera, and Theodolite 2 on the lower left part of the figure is pointing at the STR alingment prism.\relax }}{28}{figure.caption.43}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Picture from the beacon camera, using a collimated laser source at 625 nm. The entore FoV is not shown, and we can see only a Region of Interest with dimentions 128x128 pixels.\relax }}{29}{figure.caption.46}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Representation of the beacon camera detector. Green line, that coincides with the x-pixel direction of the beacon camera $\phi $ with the theodolite tilting axis. Z axis (orange line) represents the pointing axis of the beacon camera\relax }}{30}{figure.caption.47}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Theodolites after they have rotated, and now they are in line of sight with each other\relax }}{32}{figure.caption.55}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces XYZ shows the star tracker alignment cubes reference frame, the red vector shows the principal of the camera and angle $\theta _X$ (blue color) shows the 3d angle of the beacon camera vector with respect to the x-axis of the star tracker reference frame. $\theta _X$ is directly measured. In order to fully characterise this vector, also the $\theta _y$ angle is necessary, that is measured in a similar way.\relax }}{33}{figure.caption.57}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Measuring the angles $\theta _{Xrm}$, $\theta _{Yrm}$ (where rm means rotary stage + mirror) using only one mirror and one rotary stage. The rotary stage orients the mirror in order for it to autocollimate with theodolite 1, and theodolite 2. The total rotation angle is measured.\relax }}{35}{figure.caption.62}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces xyz is the Cartesian coordinate system of the star tracker alignment prism. ABC triangle is the spherical triangle that will be used in order to transform from the measured angles, to the coordinates to the star tracker coordinate system.\relax }}{37}{figure.caption.65}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Example of how to verticalize a laser collimator with a mirror.\relax }}{40}{figure.caption.70}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Image acquisition setup.\relax }}{40}{figure.caption.74}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Image acquisition setup.\relax }}{41}{figure.caption.75}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Example of image taken with ATLAS BC, and light from the laser collimator.\relax }}{44}{figure.caption.80}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Comparing the measurement results before and after the vibration testing.\relax }}{45}{figure.caption.82}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces From theodolite measurement to 3D space vectors.\relax }}{47}{figure.caption.86}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces The intersection of the cones is the final vector we are looking for.\relax }}{49}{figure.caption.91}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Example of Calculated Vector from the alignment measurement.\relax }}{50}{figure.caption.93}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Overview of the rotation of the star tracker, as seen from the +x side of the satellite.\relax }}{62}{figure.caption.99}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
