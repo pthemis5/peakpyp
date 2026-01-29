@@ -112,11 +112,11 @@ For practical applications, we can note the 2 main advantages of SSO orbits. Fir
 	\label{tab:orbit_peaksat}
 \end{table}
 
-As a final comment, we can show an intuitive way to convert between the Local Time of the Ascending Node (LTAN), and Right Ascension of the Ascending Node ($\Omega$). For a sateellite $\Omega$ denotes the angle on the equator, between the equinox position $\gamma$, and the intersection of the orbit and the equator plane that the satellites moves towards the north hemisphere. The LTAN, denotes the local time down in the earth, when the satellite crosses the equator and moves towards the north hemisphere. For SSO orbits, it is much more convenient to use LTAN, as it is a slowly varying variable, unlike $\Omega$ that changes significantly every day. To convert between the 2, we can initially imagine that on 21 of March, the Sun has a right ascension of 0 degrees. This means that a satellite with LTAN = 12, would cross the equator at a point between the line connecting the Earth and the sun. Now, if on 21 of March we change the LTAN to 14, this would add 30 degrees in the RAAN, and keeping the LTAN fixed, but moving forward 9 days in time, we add 9 more degrees to RAAN. This creates the approximate $39 \degree$ RAAN that we are seeing in \cref{tab:orbit_peaksat}
+As a final comment, we can show an intuitive way to convert between the Local Time of the Ascending Node (LTAN), and Right Ascension of the Ascending Node ($\Omega$). For a sateellite $\Omega$ denotes the angle on the equator, between the equinox position $\gamma$, and the intersection of the orbit and the equator plane that the satellites moves towards the north hemisphere. The LTAN, denotes the local time down in the earth, when the satellite crosses the equator and moves towards the north hemisphere. For SSO orbits, it is much more convenient to use LTAN, as it is a slowly varying variable, unlike $\Omega$ that changes significantly every day.
 
 \subsection{Passes}
 Finally, we show some simple orbital analysis that will also be necessary in the Optical Pass planning, and the general mission. 
-We are very interested in knowing how much times we expect to have a pass opportunity. Moreover, we are interested in the maximum altitude of each pass, because it is connected both with atmospheric loss, but also the pass duration. We perform a simple analysis (TODO add the url) where we propagate different TLEs, for the different possible launch LTANs of the satellite. Results for our analysis can be found in \cref{fig:peaksat_passes}, where in the x axis we show the possible LTAN of the satellite, and in the Y axis the maximum expected altitude. The propagation was performed using orekit (TODO: add orekit citation)
+We are very interested in knowing how much times we expect to have a pass opportunity. Moreover, we are interested in the maximum altitude of each pass, because it is connected both with atmospheric loss, but also the pass duration. We perform a simple analysis (\href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/orbits_simulations/orbit_propagations_orekit/plot_passes/plots_passes_LTAN_tleprop.ipynb}{pass\textunderscore LTAN\textunderscore tleprop.ipynb}) where we propagate different TLEs, for the different possible launch LTANs of the satellite. Results for our analysis can be found in \cref{fig:peaksat_passes}, where in the x axis we show the possible LTAN of the satellite, and in the Y axis the maximum expected altitude. The propagation was performed using orekit.
 
 
 
@@ -157,4 +157,7 @@ We are very interested in knowing how much times we expect to have a pass opport
 \end{table}
 
 \section{External repositories}
+TODO: add citations, github urls etc
+
+
 python, numpy, scipy, astropy, matplotlib, plotly, pandas, os, orekit, datetime, json, 

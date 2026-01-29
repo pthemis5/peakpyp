@@ -34,55 +34,56 @@
 \contentsline {paragraph}{Comparison of Control Modes}{23}{section*.23}%
 \contentsline {subsection}{\numberline {3.7.2}Can we Trust the simulations?}{23}{subsection.3.7.2}%
 \contentsline {chapter}{\numberline {4}Misalignment Measurement}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction}{25}{section.4.1}%
-\contentsline {section}{\numberline {4.2}On-ground measurements}{26}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Star Tracker with alignment prism}{26}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Astrolight pointing maps}{26}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Star Tracker Prism to Beacon Camera}{26}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}Preparation of Measurement Procedures}{27}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Static misalignment targets}{27}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Equipment}{27}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Measurement Overview}{28}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Expected Results}{28}{subsection.4.3.4}%
-\contentsline {paragraph}{Vector}{29}{section*.27}%
-\contentsline {paragraph}{3D rotation matrix}{29}{section*.28}%
-\contentsline {subsection}{\numberline {4.3.5}Main procedures}{29}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}Aligning Theodolite with the Beacon Camera}{30}{subsection.4.3.6}%
-\contentsline {paragraph}{Relevant information}{30}{section*.30}%
-\contentsline {paragraph}{Implementation}{30}{section*.31}%
-\contentsline {paragraph}{Sources of uncertainty}{32}{section*.34}%
-\contentsline {subsection}{\numberline {4.3.7}Aligning theodolite with star tracker prism}{33}{subsection.4.3.7}%
-\contentsline {paragraph}{Implementation}{33}{section*.35}%
-\contentsline {paragraph}{Sources of uncertainty}{33}{section*.36}%
-\contentsline {subsection}{\numberline {4.3.8}Auto-referring theodolites}{33}{subsection.4.3.8}%
-\contentsline {paragraph}{Implementation}{33}{section*.37}%
-\contentsline {paragraph}{Mathematical angles representation}{34}{section*.39}%
-\contentsline {paragraph}{Sources of uncertainty}{35}{section*.41}%
-\contentsline {subsection}{\numberline {4.3.9}Propagation of measurement uncertainties}{36}{subsection.4.3.9}%
-\contentsline {subsection}{\numberline {4.3.10}Expected Measurement Uncertainty}{37}{subsection.4.3.10}%
-\contentsline {section}{\numberline {4.4}Measurement at ESTEC}{38}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Pre-Vibe Measurement}{38}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Post-Vibe Measurements}{39}{subsection.4.4.2}%
-\contentsline {section}{\numberline {4.5}ESTEC results}{39}{section.4.5}%
-\contentsline {paragraph}{Definitions}{39}{section*.44}%
-\contentsline {paragraph}{Coordinate Systems}{40}{section*.45}%
-\contentsline {paragraph}{Calculating Vectors}{40}{section*.46}%
-\contentsline {subsubsection}{Transforming Vectors}{40}{section*.47}%
-\contentsline {paragraph}{Calculating BC vector and misalignment}{41}{section*.48}%
-\contentsline {section}{\numberline {4.6}BC-BCRS Characterization}{43}{section.4.6}%
-\contentsline {paragraph}{Beacon Camera}{45}{section*.53}%
-\contentsline {subsection}{\numberline {4.6.1}Conclusions}{46}{subsection.4.6.1}%
-\contentsline {section}{\numberline {4.7}Input to the ADCS}{46}{section.4.7}%
-\contentsline {chapter}{\numberline {5}Conclusions}{50}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Operational Scenarios}{50}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Optical Pass Planning}{50}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Optical Link Post Processing}{50}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}In orbit Optical Alignment (BCC-SBC)}{51}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Conclusions}{51}{section.5.2}%
-\contentsline {chapter}{\numberline {A}3D Rotations}{53}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Rotation sequences}{53}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Rotation Matrices}{53}{section.A.2}%
-\contentsline {chapter}{\numberline {B}Optimizing Access to Aligmnent Prism}{55}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Optimizing Access to Alignment prism}{55}{section.B.1}%
-\contentsline {chapter}{\numberline {C}Gaussian Error Propagation}{57}{appendix.C}%
-\contentsline {section}{\numberline {C.1}Error propagation}{57}{section.C.1}%
+\contentsline {part}{{\fontencoding {T1}\selectfont I}\hspace {1em}title}{26}{part.1}%
+\contentsline {section}{\numberline {4.1}Introduction}{27}{section.4.1}%
+\contentsline {section}{\numberline {4.2}On-ground measurements}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Star Tracker with alignment prism}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Astrolight pointing maps}{28}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Star Tracker Prism to Beacon Camera}{28}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Preparation of Measurement Procedures}{29}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Static misalignment targets}{29}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Equipment}{29}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Measurement Overview}{30}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Expected Results}{30}{subsection.4.3.4}%
+\contentsline {paragraph}{Vector}{31}{section*.27}%
+\contentsline {paragraph}{3D rotation matrix}{31}{section*.28}%
+\contentsline {subsection}{\numberline {4.3.5}Main procedures}{31}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Aligning Theodolite with the Beacon Camera}{32}{subsection.4.3.6}%
+\contentsline {paragraph}{Relevant information}{32}{section*.30}%
+\contentsline {paragraph}{Implementation}{32}{section*.31}%
+\contentsline {paragraph}{Sources of uncertainty}{34}{section*.34}%
+\contentsline {subsection}{\numberline {4.3.7}Aligning theodolite with star tracker prism}{35}{subsection.4.3.7}%
+\contentsline {paragraph}{Implementation}{35}{section*.35}%
+\contentsline {paragraph}{Sources of uncertainty}{35}{section*.36}%
+\contentsline {subsection}{\numberline {4.3.8}Auto-referring theodolites}{35}{subsection.4.3.8}%
+\contentsline {paragraph}{Implementation}{35}{section*.37}%
+\contentsline {paragraph}{Mathematical angles representation}{36}{section*.39}%
+\contentsline {paragraph}{Sources of uncertainty}{37}{section*.41}%
+\contentsline {subsection}{\numberline {4.3.9}Propagation of measurement uncertainties}{38}{subsection.4.3.9}%
+\contentsline {subsection}{\numberline {4.3.10}Expected Measurement Uncertainty}{39}{subsection.4.3.10}%
+\contentsline {section}{\numberline {4.4}Measurement at ESTEC}{40}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Pre-Vibe Measurement}{40}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Post-Vibe Measurements}{41}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}ESTEC results}{41}{section.4.5}%
+\contentsline {paragraph}{Definitions}{41}{section*.44}%
+\contentsline {paragraph}{Coordinate Systems}{42}{section*.45}%
+\contentsline {paragraph}{Calculating Vectors}{42}{section*.46}%
+\contentsline {subsubsection}{Transforming Vectors}{42}{section*.47}%
+\contentsline {paragraph}{Calculating BC vector and misalignment}{43}{section*.48}%
+\contentsline {section}{\numberline {4.6}BC-BCRS Characterization}{45}{section.4.6}%
+\contentsline {paragraph}{Beacon Camera}{47}{section*.53}%
+\contentsline {subsection}{\numberline {4.6.1}Conclusions}{48}{subsection.4.6.1}%
+\contentsline {section}{\numberline {4.7}Input to the ADCS}{48}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Conclusions}{52}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Operational Scenarios}{52}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Optical Pass Planning}{52}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Optical Link Post Processing}{52}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}In orbit Optical Alignment (BCC-SBC)}{53}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Conclusions}{53}{section.5.2}%
+\contentsline {chapter}{\numberline {A}3D Rotations}{55}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Rotation sequences}{55}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Rotation Matrices}{55}{section.A.2}%
+\contentsline {chapter}{\numberline {B}Optimizing Access to Aligmnent Prism}{57}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Optimizing Access to Alignment prism}{57}{section.B.1}%
+\contentsline {chapter}{\numberline {C}Gaussian Error Propagation}{59}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Error propagation}{59}{section.C.1}%
