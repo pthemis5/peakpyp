@@ -585,7 +585,7 @@ To detect the centroid of each laser blob, we individually fitted each image wit
 
 
 
-\begin{figure}][H]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/skg_pre_post_vibe_result.png}
 	\caption{Comparing the measurement results before and after the vibration testing.}
@@ -613,7 +613,7 @@ The information, we have gathered so far, and are going to be used for finding t
 \item The Tx RS vector in the BCC: x=918.1 pix / y=804.1 pix
 \item Beacon Camera Orientation is 11.5 degrees with respect to the ATLAS CAD. (approximate, not measured)
 \item This means, that if a BCC vector is calculated by : $$v_{BCC} = \begin{bmatrix} -(p_x - p_{cx}) \cdot p_s \\ -(p_y - p_{cy}) \cdot p_s   \\ f\end{bmatrix}$$
-\item where: $p_x, p_y$ are the pixel detected positions, and $p_{cx}, p_{cy}$ are the reference center pixels as provided by astrolight. Then, the Z axis transformation from a BCC vector to an SBC vector, is: $$R_{BCC2SBC} = \begin{bmatrix} 0.9799247 & 0.19936793 & 0 \\ -0.19936793 & 0.9799247& 0 \\ 0 &0 & 1 \end{bmatrix}$$
+\item where: $p_x, p_y$ are the pixel detected positions, and $p_{cx}, p_{cy}$ are the reference center pixels as provided by astrolight. Then, the Z axis transformation (\cref{ap:rotation_matrices}) from a BCC vector to an SBC vector, is: $$R_{BCC2SBC} = \begin{bmatrix} 0.9799247 & 0.19936793 & 0 \\ -0.19936793 & 0.9799247& 0 \\ 0 &0 & 1 \end{bmatrix}$$
 \item Finally, we know the TxRS vector in the SBC (check above)
 
 \end{itemize}
@@ -622,7 +622,7 @@ Combining all the above, we can find the Beacon Camera Center PixelCoordinate, i
 
 bcCenterSbc = [-0.0009728543, -0.007455972, 0.9999717306]
 
-This, is in practice the misalignment that can be put into the ADCS body pointing vector. As has been explained, this is not prefered, so this misalignment is going to be encoded into the Star Tracker mounting Configuration.This is calculated, by finding the Rodrigues Matrix, that will rotate the Star Tracker Mounting Configuration, around the cross product axis defined by the theoretical SBC Z, and the beacon camera measured SBC Z. It is worth noting that this transformation can be arbitrary, (as it requires 3 constrains, but we have 2 from the unit vector) but we choose the one that changes the Star Tracker moutning configuration as least as possible. The new mounting configuration, will put the measured ATLAS BC central pixel, to the SBC +Z axis.
+This, is in practice the misalignment that can be put into the ADCS body pointing vector. As has been explained, this is not prefered, so this misalignment is going to be encoded into the Star Tracker mounting Configuration.This is calculated, by finding the rotation matrix using the Rodriguez formula (\cref{ap:rodriguez_formula}), that will rotate the Star Tracker Mounting Configuration, around the cross product axis defined by the theoretical SBC Z, and the beacon camera measured SBC Z. It is worth noting that this transformation can be arbitrary, (as it requires 3 constrains, but we have 2 from the unit vector) but we choose the one that changes the Star Tracker moutning configuration as least as possible. The new mounting configuration, will put the measured ATLAS BC central pixel, to the SBC +Z axis.
 
 As a reminder, the ideal Star Tracker mounting configurations are:\\
 Alpha (yaw): -2.5\\

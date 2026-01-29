@@ -1,15 +1,6 @@
-\section{Rotation sequences}
-\label{ap:rotation_sequences}
-\textit{Intrinsic Rotations}: Axes of the new coordinate system are used. In a 3-2-1 rotation, first the angle gamma is applied, then beta, then alpha. Following the scipy convention, these will be denoted with capital letters ``XYZ''. \textit{Extrinsic Rotation }
-Axes of a global coordinate system are being used. Following the `scipy` conversion, small letters `xyz` will be used to show the specific rotation sequence.
-
-\textbf{Theorem:}
-Any extrinsic rotation is equivalent to an intrinsic rotation by the same angles but with inverted order of elemental rotations, and vice-versa. For instance, the intrinsic rotations $x-y'-z''$ by angles $\alpha, \beta, \gamma$ are equivalent to the extrinsic rotations z-y-x by angles $\gamma, \beta, \alpha$. A very useful link to understand the above can be found \href{https://arg.usask.ca/docs/skplatform/appendices/rotation_matrices.html}{here}.
-
-
 \section{Rotation Matrices}
 \label{ap:rotation_matrices}
-Rotations in 3 dimensions can be denoted by several representations. One of them is the rotation matrices. A rotation matrix around a specific axis defines a rotation, and it is an one-parametric function of the rotation angle. Rotation matrices around the $x, y, z$ axes of a Cartesian coordinate system can be found below. Rotation matrices can be understood more easy, if we think that they represent an extrinsic rotation sequence. 
+Rotations (and orientations) in 3 dimensions can be denoted by several representations. One of them is the rotation matrices. A rotation matrix around a specific axis defines a rotation, and it is an one-parametric function of the rotation angle. Rotation matrices around the $x, y, z$ axes of a Cartesian coordinate system can be found below. Rotation matrices can be understood more easy, if we think that they represent an extrinsic rotation sequence. 
 \begin{equation}
 \mathbf{R}_x(\theta) =
 \begin{pmatrix}
@@ -37,7 +28,8 @@ Rotations in 3 dimensions can be denoted by several representations. One of them
 \end{pmatrix}
 \end{equation}
 
-Combining the above equations, we end up with the full rotation matrix in 3 dimensions. For example, we can denote a 3-2-1 extrinsic rotation sequence, where $\alpha, \beta, \gamma$ represent the yaw, pitch and roll respectively, with the matrix: 
+Combining the above equations, we end up with the full rotation matrix in 3 dimensions. For example, we can denote a if we rotate first about the Z axis with an angle $\gamma$, then around the Y axis with an angle $\beta$ and finally around the X axis with an angle $\alpha$, we can multiply the matrices and write:
+
 $$ R(\alpha, \beta, \gamma) = R_{z}(\gamma) R_{y}(\beta) R_{x}(\alpha)$$
 \begin{equation}
 R(\alpha, \beta, \gamma) = \begin{bmatrix}
@@ -47,8 +39,77 @@ R(\alpha, \beta, \gamma) = \begin{bmatrix}
  \end{bmatrix}
 \end{equation}
 
+In such an rotation, the angles $\alpha, \beta, \gamma$ represent a rotation sequence (check \cref{ap:rotation_matrices}), and they are called Euler Angles (\cite{landisFundamentalsSpacecraftAttitude2019}). The angles $\alpha, \beta, \gamma$ can also be refereed to as the roll, pitch and yaw respectively. 
+
+Finally, a rotation matrix can be interpreted in 2 ways: The first is to transform a vector from Cartesian coordinate system, say A, to an other coordinate system B. The second, is to consider it as an attitude quaternion, that shows the relative orientations of the vectors of A, in the B coordinate system. The latter can be also interpreted as taking the unit vectors os B and rotate them until they match the unit vectors of A, but with the ``opposite'' angle directions with respect to the vector rotation approach. 
+
 TODO: add citations
 TODO: add rodriguez formula
-TODO: add quaternions and euler angles(not necessary)
+
+\section{Rotation sequences}
+\label{ap:rotation_sequences}
+\textit{Intrinsic Rotations}: Axes of the new coordinate system are used. In a 3-2-1 rotation, first the angle gamma is applied, then beta, then alpha. Following the scipy convention, these will be denoted with capital letters ``XYZ''. \textit{Extrinsic Rotation }
+Axes of a global coordinate system are being used. Following the `scipy` conversion, small letters `xyz` will be used to show the specific rotation sequence.
+
+\textbf{Theorem:}
+Any extrinsic rotation is equivalent to an intrinsic rotation by the same angles but with inverted order of elemental rotations, and vice-versa. For instance, the intrinsic rotations $x-y'-z''$ by angles $\alpha, \beta, \gamma$ are equivalent to the extrinsic rotations z-y-x by angles $\gamma, \beta, \alpha$. A very useful link to understand the above can be found \href{https://arg.usask.ca/docs/skplatform/appendices/rotation_matrices.html}{here}.
+
+\section{Quaternions}
+\label{ap:quaternions}
+Quaternions are a convenient way of representing rotations and orientations in 3D space. A quaternion, is practically an extension of the imaginary numbers. It can be represented as:
+
+\begin{equation}
+	q = q_w + i q_x + j q_y + k q_z
+\end{equation}
+
+Several interesting properties of the quaternions can be found \href{https://lisyarus.github.io/blog/posts/introduction-to-quaternions.html}{here}. Using these, we show that there is a relation of rotation matrix orientations and quaternion orientations. The quaternions present the following advantages: 1) They do not present Gimbal Lock, so they can be used more convenient in control algorithms 2) Quaternion multiplications represents a sequence of rotations, as matrix multiplication represents sequence of rotations. Quaternion multiplication uses less calculations. It should be noted that matrix rotating a vector, uses less equations than quaternion rotating a vector. Finally, it should be noted that quaternions, as rotation matrices, can either represent a transformation, or an attitude representation. 
+
+Transforming from a matrix to a quaternion, needs to perform a few checks on the matrix numerical properties \citep{landisFundamentalsSpacecraftAttitude2019}. The quaternion multiplication of quaternions $q, w$ is given by.
+
+\begin{equation}
+	\begin{aligned}
+		q_{new\_x} &= w_1 x_2 + x_1 w_2 + y_1 z_2 - z_1 y_2 \\
+		q_{new\_y} &= w_1 y_2 - x_1 z_2 + y_1 w_2 + z_1 x_2 \\
+		q_{new\_z} &= w_1 z_2 + x_1 y_2 - y_1 x_2 + z_1 w_2 \\
+		q_{new\_w} &= w_1 w_2 - x_1 x_2 - y_1 y_2 - z_1 z_2
+	\end{aligned}
+	\label{eq:quaternion_multiplication}
+\end{equation}
 
 
+Using this, we can find transform a rotation matrix to a quaternion: For example, for matrix M, if the Matrix Trace is larger than zero, the components of the quaternion will be given by:
+
+
+\begin{equation}
+	\begin{aligned}		
+		q_w &= \frac{1}{2} \sqrt{1 + m_{00} + m_{11} + m_{22}} \\
+		q_x &= \frac{m_{21} - m_{12}}{4q_w} \\
+		q_y &= \frac{m_{02} - m_{20}}{4q_w} \\
+		q_z &= \frac{m_{10} - m_{01}}{4q_w}
+	\end{aligned}
+\end{equation}
+
+The opposite relation from a quaternion to a matrix is given by:
+
+\begin{equation}
+	R = \begin{bmatrix}
+		1 - 2(q_y^2 + q_z^2) & 2(q_x q_y - q_z q_w) & 2(q_x q_z + q_y q_w) \\
+		2(q_x q_y + q_z q_w) & 1 - 2(q_x^2 + q_z^2) & 2(q_y q_z - q_x q_w) \\
+		2(q_x q_z - q_y q_w) & 2(q_y q_z + q_x q_w) & 1 - 2(q_x^2 + q_y^2)
+	\end{bmatrix}
+\end{equation}
+
+Rotation sequences in quaternions, can be denoted using quaternion multiplications using \cref{eq:quaternion_multiplication}.
+
+
+\section{Rodriguez Formula}
+\label{ap:rodriguez_formula}
+Rodriguez formula is very useful, as it can compute the rotation matrix, if we provide to it an axis that the rotation will happen around it, and an angle theta. Following \cite{xieSpacecraftDynamicsControl2022}, if $c = \cos \theta.\, s = \sin \theta,\, t = 1- \cos \theta$ and $u_x, u_y, u_z$ are the unitary axis components, then the rotation matrix is given by:
+
+\begin{equation}
+	R = \begin{bmatrix}
+		c + u_x^2 t & u_x u_y t - u_z s & u_x u_z t + u_y s \\
+		u_y u_x t + u_z s & c + u_y^2 t & u_y u_z t - u_x s \\
+		u_z u_x t - u_y s & u_z u_y t + u_x s & c + u_z^2 t
+	\end{bmatrix}
+\end{equation}
