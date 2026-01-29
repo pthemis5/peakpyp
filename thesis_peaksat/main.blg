@@ -3,49 +3,49 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: aa.bst
 Database file #1: biblio.bib
+Warning--I didn't find a database entry for "plotly"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-Warning--empty year in curtisOrbitalMechanicsEngineering; set to ????
 Warning--empty publisher in landisFundamentalsSpacecraftAttitude2019
 Warning--empty publisher in xieSpacecraftDynamicsControl2022
-You've used 4 entries,
+You've used 10 entries,
             3039 wiz_defined-function locations,
-            686 strings with 5295 characters,
-and the built_in function-call counts, 1244 in all, are:
-= -- 97
-> -- 44
-< -- 4
-+ -- 18
-- -- 12
-* -- 78
-:= -- 240
-add.period$ -- 4
-call.type$ -- 4
-change.case$ -- 21
-chr.to.int$ -- 4
-cite$ -- 7
-duplicate$ -- 64
-empty$ -- 117
-format.name$ -- 16
-if$ -- 241
+            723 strings with 6173 characters,
+and the built_in function-call counts, 3746 in all, are:
+= -- 310
+> -- 219
+< -- 7
++ -- 77
+- -- 63
+* -- 265
+:= -- 722
+add.period$ -- 10
+call.type$ -- 10
+change.case$ -- 57
+chr.to.int$ -- 10
+cite$ -- 12
+duplicate$ -- 178
+empty$ -- 266
+format.name$ -- 85
+if$ -- 733
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 3
-newline$ -- 16
-num.names$ -- 16
-pop$ -- 24
+missing$ -- 9
+newline$ -- 34
+num.names$ -- 40
+pop$ -- 54
 preamble$ -- 1
-purify$ -- 20
+purify$ -- 56
 quote$ -- 0
-skip$ -- 60
+skip$ -- 157
 stack$ -- 0
-substring$ -- 48
+substring$ -- 153
 swap$ -- 0
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 27
-warning$ -- 3
-while$ -- 12
+type$ -- 81
+warning$ -- 2
+while$ -- 34
 width$ -- 0
-write$ -- 41
+write$ -- 99
 (There were 3 warnings)

@@ -41,10 +41,8 @@ R(\alpha, \beta, \gamma) = \begin{bmatrix}
 
 In such an rotation, the angles $\alpha, \beta, \gamma$ represent a rotation sequence (check \cref{ap:rotation_matrices}), and they are called Euler Angles (\cite{landisFundamentalsSpacecraftAttitude2019}). The angles $\alpha, \beta, \gamma$ can also be refereed to as the roll, pitch and yaw respectively. 
 
-Finally, a rotation matrix can be interpreted in 2 ways: The first is to transform a vector from Cartesian coordinate system, say A, to an other coordinate system B. The second, is to consider it as an attitude quaternion, that shows the relative orientations of the vectors of A, in the B coordinate system. The latter can be also interpreted as taking the unit vectors os B and rotate them until they match the unit vectors of A, but with the ``opposite'' angle directions with respect to the vector rotation approach. 
+Finally, a rotation matrix can be interpreted in 2 ways: The first is to transform a vector from Cartesian coordinate system, say A, to an other coordinate system B. The second, is to consider it as an attitude quaternion, that shows the relative orientations of the vectors of A, in the B coordinate system. The latter can be also interpreted as taking the unit vectors os B and rotate them until they match the unit vectors of A, but with the ``opposite'' angle directions with respect to the vector rotation approach. The above matrices are defined in \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/peakpy/peakpy/transformations/rotation_matrices.py}{rotation\textunderscore matrices.py}
 
-TODO: add citations
-TODO: add rodriguez formula
 
 \section{Rotation sequences}
 \label{ap:rotation_sequences}

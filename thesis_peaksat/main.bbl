@@ -1,17 +1,40 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{10}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
-\bibitem[{Curtis(????)}]{curtisOrbitalMechanicsEngineering}
-Curtis, H. ????, Orbital {Mechanics} for {Engineering} {Students}, iSBN:
+\bibitem[{Collaboration {et~al.}(2018)Collaboration, Price-Whelan, Sip{\H o}cz,
+  {et~al.}}]{astropy}
+Collaboration, A., Price-Whelan, A.~M., Sip{\H o}cz, B.~M., {et~al.} 2018, The
+  Astronomical Journal, 156, 123
+
+\bibitem[{Curtis(2012)}]{curtisOrbitalMechanicsEngineering}
+Curtis, H. 2012, Orbital {Mechanics} for {Engineering} {Students}, iSBN:
   9780080977478
 
 \bibitem[{Fitzpatrick(2012)}]{fitzpatrickIntroductionCelestialMechanics2012}
 Fitzpatrick, R. 2012, An {Introduction} to {Celestial} {Mechanics} (Cambridge:
   Cambridge University Press)
 
+\bibitem[{Harris {et~al.}(2020)Harris, Millman, van~der Walt, {et~al.}}]{numpy}
+Harris, C.~R., Millman, K.~J., van~der Walt, S.~J., {et~al.} 2020, Nature, 585,
+  357
+
+\bibitem[{Hunter(2007)}]{matplotlib}
+Hunter, J.~D. 2007, Computing in Science \& Engineering, 9, 90
+
 \bibitem[{Landis(2019)}]{landisFundamentalsSpacecraftAttitude2019}
 Landis, L. 2019, Fundamentals of {Spacecraft} {Attitude} {Determination} and
   {Control}
+
+\bibitem[{Maisonobe {et~al.}(2010)}]{orekit}
+Maisonobe, L. {et~al.} 2010, Proceedings of the 4th International Conference on
+  Astrodynamics Tools and Techniques
+
+\bibitem[{McKinney {et~al.}(2023)}]{pandas}
+McKinney, W. {et~al.} 2023, Zenodo
+
+\bibitem[{Virtanen {et~al.}(2020)Virtanen, Gommers, Oliphant, {et~al.}}]{scipy}
+Virtanen, P., Gommers, R., Oliphant, T.~E., {et~al.} 2020, Nature Methods, 17,
+  261
 
 \bibitem[{Xie(2022)}]{xieSpacecraftDynamicsControl2022}
 Xie, Y. 2022, Spacecraft {Dynamics} and {Control}

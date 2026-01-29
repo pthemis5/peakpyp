@@ -381,8 +381,6 @@ Comparing the required and the final measured misalignment, we can deduce that t
 
 \section{Measurement at ESTEC}
 \label{sec:measurement_at_estec}
-TODO: should i add any pictures, or it is confidential from inside ESTEC?
-
 The Misalignment characterization measurement was performed before the vibration testing, and after the vibration testing, in the Metrology Lab at ESTEC, in the Netherlands. We will explain both measurements separately. 
 
 Before this, we will mention one big change that we did not include in our main procedures.\textbf{ A theodolite autocollimation takes place in Phase 1, and Phase 2}. In phase one, the theodolite is autocollimated with the reflective surface as explained in \cref{ssec:align_theodolite_star_tracker}. The results are saved at this point, and then, a button is pressed at the theodolite, that rotates both axes by $180 \degree$. This points the theodolite approximately at the same orientation as before, with a small deviation from the initial autocollimation. If this deviation is fixed, then the results are taken again. The difference between the 2 calculated vectors, is the measurement uncertainty. 
@@ -443,7 +441,7 @@ The transformation from unitary spherical coordinate system, to a Cartesian is n
 \item Uncertainty propagation in vectors is fairly simple and less prone to errors. We will do it by the root of the square sum.
 \end{itemize}
 
-\subsubsection{Transforming Vectors}
+\paragraph{Transforming Vectors}
 
 
 \begin{itemize}
@@ -498,7 +496,7 @@ And the final vector in the SBC can be plotted in \cref{fig:al_post_calculated_v
 	\label{fig:al_projection_xyvectors}
 \end{figure}
 
-Before and After Vibration, we calculated the vectors using exactly the same procedure. The full results of the final measured vectors of both the BCRS, and the TxRS can be found in \cref{tab:measured_vectors}, and the projection of their X, Y coordinates in \cref{fig:al_projection_xyvectors}.  As a conclusion, we see that the change between the BCRS vectors before and after vibe is less than 0.011 degrees - which is much less than the 2 degrees field of View of the Beacon Camera. 
+Before and After Vibration, we calculated the vectors using exactly the same procedure. The full results of the final measured vectors of both the BCRS, and the TxRS can be found in \cref{tab:measured_vectors}, and the projection of their X, Y coordinates in \cref{fig:al_projection_xyvectors}.  As a conclusion, we see that the change between the BCRS vectors before and after vibe is less than 0.011 degrees - which is much less than the 2 degrees field of View of the Beacon Camera. The code to calculate the above can be found in \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/optical-organizational/missalignment_handling/calculate_misalignment_ESTEC.ipynb}{calc\textunderscore misalignment.ipynb} 
 
 \begin{table}[h]
 	\centering
@@ -570,18 +568,10 @@ The setup can be seen in the \cref{fig:skg_alignment_setup,fig:skg_alignment_col
 
 
 
-In total we captured 12 images, during the pre-vibe measurement, and 22 in the post vibe measurement. For all of them, we changed the lateral position of the reflected ray. We do not have any way to measure where exactly on the BCRS the ray was incident to, but by eye we can make an estimation on where we see it. This is very important, as it will answer the question, weather the detected position depends on the incident ray beam position. An example of a capture image is \cref{fig:skg_atlas_image_example}.
+In total we captured 12 images, during the pre-vibe measurement, and 22 in the post vibe measurement. For all of them, we changed the lateral position of the reflected ray. We do not have any way to measure where exactly on the BCRS the ray was incident to, but by eye we can make an estimation on where we see it. This is very important, as it will answer the question, weather the detected position depends on the incident ray beam position.
 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/skg_atlas_image_example.png}
-	\caption{Example of image taken with ATLAS BC, and light from the laser collimator.}
-	\label{fig:skg_atlas_image_example}
-\end{figure}
-
-
-To detect the centroid of each laser blob, we individually fitted each image with a Gaussian.In the \textbf{Pre-Vibe} measurement, the maximum absolute distance of the furthest centroids is 33px, which translates into $2.5'$, and the centroid $1 \sigma$ is approx 15px, or $1'$. In the \textbf{Post-Vibe} the maximum absolute distance of the furthest centroids is 35px, which translates into 2.5'. Results of the fitted optical centers, can be viewed in \cref{fig:skg_al_pre_post_vibe_results}.
+To detect the centroid of each laser blob, we individually fitted each image with a Gaussian.In the \textbf{Pre-Vibe} measurement, the maximum absolute distance of the furthest centroids is 33px, which translates into $2.5'$, and the centroid $1 \sigma$ is approx 15px, or $1'$. In the \textbf{Post-Vibe} the maximum absolute distance of the furthest centroids is 35px, which translates into 2.5'. Results of the fitted optical centers, can be viewed in \cref{fig:skg_al_pre_post_vibe_results}. The above calculations are shown in \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/optical-organizational/skg_alignment/00_read_images.ipynb}{00\textunderscore read\textunderscore images.ipynb}.
 
 
 
@@ -607,35 +597,89 @@ We were able to characterize the misalignment between the BC, and BCRS, with an 
 
 \section{Input to the ADCS}
 \label{sec:input_to_adcs}
-The information, we have gathered so far, and are going to be used for finding the Beacon Camera Coordinates (BCC) and the Satellite Body Coordinates (SBC) are:
+The information, we have gathered so far, are going to be used for finding the following 2 quantities: 
+\begin{enumerate}
+	\item The Beacon Camera Center (FSM zero position) in the SBC frame, and this will be the final vector we have to point to the ground
+	\item An initial guess of the full transformation from SBC to BCC. 
+\end{enumerate}
 
+We will also use 2 pieces of information, that are provided by the Optical Terminal Provider:
 \begin{itemize}
-\item The Tx RS vector in the BCC: x=918.1 pix / y=804.1 pix
-\item Beacon Camera Orientation is 11.5 degrees with respect to the ATLAS CAD. (approximate, not measured)
-\item This means, that if a BCC vector is calculated by : $$v_{BCC} = \begin{bmatrix} -(p_x - p_{cx}) \cdot p_s \\ -(p_y - p_{cy}) \cdot p_s   \\ f\end{bmatrix}$$
-\item where: $p_x, p_y$ are the pixel detected positions, and $p_{cx}, p_{cy}$ are the reference center pixels as provided by astrolight. Then, the Z axis transformation (\cref{ap:rotation_matrices}) from a BCC vector to an SBC vector, is: $$R_{BCC2SBC} = \begin{bmatrix} 0.9799247 & 0.19936793 & 0 \\ -0.19936793 & 0.9799247& 0 \\ 0 &0 & 1 \end{bmatrix}$$
-\item Finally, we know the TxRS vector in the SBC (check above)
-
+	 \item The FSM zero position in the BCC is: x=918.1 pix / y=804.1 px
+ 	 \item The TxRS vector in the BCC: x=971.1 pix / y=694.7 px
+	 \item Beacon Camera Orientation is 11.5 degrees with respect to the ATLAS CAD (approximate, not measured). \footnote{In theory, we have 2 vectors in the BCC: TxRS that is provided by Astrolight, and BCRS measured in \cref{sec:bc_bcrs_characterization}. We also have the same 2 vectors in SBC, both measured as explained in \cref{sec:estec_results}. Assuming that they are linearly independent, we can find the 3D transformation between the 2 coordinate systems. However, they are both very close to each other, and BCRS in BCC, is measured with a relatively high uncertainty. That is why we prefer to use the CAD $11.5 \degree$ rotation, instead of our measurements. }
 \end{itemize}
 
-Combining all the above, we can find the Beacon Camera Center PixelCoordinate, into the SBC:
 
-bcCenterSbc = [-0.0009728543, -0.007455972, 0.9999717306]
 
-This, is in practice the misalignment that can be put into the ADCS body pointing vector. As has been explained, this is not prefered, so this misalignment is going to be encoded into the Star Tracker mounting Configuration.This is calculated, by finding the rotation matrix using the Rodriguez formula (\cref{ap:rodriguez_formula}), that will rotate the Star Tracker Mounting Configuration, around the cross product axis defined by the theoretical SBC Z, and the beacon camera measured SBC Z. It is worth noting that this transformation can be arbitrary, (as it requires 3 constrains, but we have 2 from the unit vector) but we choose the one that changes the Star Tracker moutning configuration as least as possible. The new mounting configuration, will put the measured ATLAS BC central pixel, to the SBC +Z axis.
+Having the above in mind, by definition a vector in the BCC is calculated by : 
+
+$$v_{BCC} = \begin{bmatrix} -(p_x - p_{cx}) \cdot p_s \\ -(p_y - p_{cy}) \cdot p_s   \\ f\end{bmatrix}$$
+
+where: $p_x, p_y$ are the pixel detected positions, and $p_{cx}, p_{cy}$ are the reference center pixels. Then, the Z axis transformation (\cref{ap:rotation_matrices}) from a BCC vector to the newly transformed BCC1, that has matching X, Y axes as the SBC, is
+
+$$R_{BCC\rightarrow BCC1} = R_z (11.5 \degree)\begin{bmatrix} 0.9799247 & 0.19936793 & 0 \\ -0.19936793 & 0.9799247& 0 \\ 0 &0 & 1 \end{bmatrix}$$
+
+The above coordinate system would be exactly the SBC, if we ignored all the misalignment. We will make the approximation, that the $11.5 \degree$ is happening around the FSM zero position. That is why we can also ignore the misalignment in this calculation, because the larger change in $v^{BCC}_{BCCenter} - v^{BCC}_{TxRS}$ is happening by the rotation. This means that the camera center in the SBC frame, will be given by:
+
+\begin{equation}
+	v^{SBC}_{BCCenter} = v^{SBC}_{TxRS} + R_{BCC\rightarrow SBC} \cdot (v^{BCC}_{BCCenter} - v^{BCC}_{TxRS})
+\end{equation}
+
+where we take the 2 vectors difference in BCC, rotate it accordingly, and add it to the TxRS in SBC. 
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{cc}
+		\hline
+		&$\text{BC Center in SBC}$ \\
+		\hline
+		x&$-0.00097$ \\
+		y&$-0.00746$ \\
+		z&$0.99997$ \\
+		\hline
+	\end{tabular}
+	\caption{BC Center in SBC vector components (rounded to 5 decimals). This is the misalignment to pass to the ADCS.}
+	\label{tab:bcCenterSbc}
+\end{table}
+
+
+In order to find the initial guess of the full rotation matrix say from BCC to SBC, we assume that there are 2 sequential rotations, one that is due to the misalignment. Of course, the one that is due to the misalignment, can not be explicitly found, as we have only one vector as reference. We can assume though, that the rotation is happening on the plane that is defined by the SBC Z vector, and the BCC Center in SBC. Rodriguez formula explained in \cref{ap:rodriguez_formula} is very useful in such a case, as it can calculate the rotation matrix given an angle and a rotation axis. The rotation axis is given by the cross product of SBC Z vector, and BCC Center in SBC. We can calculate the transformation due to misalignments $R_{msl}$:
+
+\begin{equation}
+	R_{msl} = \begin{bmatrix}
+		0.9999995 & -0.0000036 & -0.0009729 \\
+		-0.0000036 & 0.9999722 & -0.0074560 \\
+		0.0009729 & 0.0074560 & 0.9999717
+	\end{bmatrix}
+\end{equation}
+
+that as defined, can transform a vector from BCC to SBC. Then, the final BCC to SBC transformation will simply by:
+
+\begin{equation}
+	R_{BCC \rightarrow SBC} = R_{msl} \cdot R_{BCC \rightarrow BCC1} 
+\end{equation}
+and trivially 
+
+\begin{equation}
+	R_{SBC \rightarrow BCC} = R_{BCC \rightarrow SBC}.T
+\end{equation}
+
+
+The vector  of \cref{tab:bcCenterSbc}, is in practice the misalignment that can be put into the ADCS body pointing vector. As has been explained, putting it as a vector is not preferred, so this misalignment is going to be encoded into the Star Tracker mounting Configuration. Of course, there is an infinite amount of mounting configurations (as it requires 3 constrains, but we have 2 from the unit vector) that can produce put the BC Center in the +Z SBC axis. We need one that is closed to the actual Star Tracker mount configuration, and this is calculated, by finding the rotation matrix using the Rodriguez formula (\cref{ap:rodriguez_formula}), that will rotate the Star Tracker Mounting Configuration, around the cross product axis defined by the theoretical SBC Z, and the beacon camera measured SBC Z. 
 
 As a reminder, the ideal Star Tracker mounting configurations are:\\
 Alpha (yaw): -2.5\\
 Beta (pitch): 0.0\\
 Gamma (roll): 90.0
 
-The best Star Tracker mounting configuration, in order to point the center of the BC to the ground, are:\\
+The best Star Tracker mounting configuration, in order to point the center of the BC (FSM Zero Position) to the ground, are:\\
 Alpha (yaw): -2.500169\\
 Beta (pitch): -0.037053\\
 Gamma (roll): 90.429225
 
 
-We close this section, by showing the 2 possible ADCS configurations, that will take into account the misalignment we have measured, and they can be compared in \cref{tab:str_mount_config}.
+The Star Tracker mounting configuration calculation is performed in \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/optical-organizational/missalignment_handling/str_mountconfig.ipynb}{str\textunderscore mountconfig\textunderscore .ipynb}. We close this section, by showing the 2 possible ADCS configurations, that will take into account the misalignment we have measured, and they can be compared in \cref{tab:str_mount_config}.
 
 \begin{table}[htbp]
 	\centering

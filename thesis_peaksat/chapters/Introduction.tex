@@ -116,7 +116,7 @@ As a final comment, we can show an intuitive way to convert between the Local Ti
 
 \subsection{Passes}
 Finally, we show some simple orbital analysis that will also be necessary in the Optical Pass planning, and the general mission. 
-We are very interested in knowing how much times we expect to have a pass opportunity. Moreover, we are interested in the maximum altitude of each pass, because it is connected both with atmospheric loss, but also the pass duration. We perform a simple analysis (\href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/orbits_simulations/orbit_propagations_orekit/plot_passes/plots_passes_LTAN_tleprop.ipynb}{pass\textunderscore LTAN\textunderscore tleprop.ipynb}) where we propagate different TLEs, for the different possible launch LTANs of the satellite. Results for our analysis can be found in \cref{fig:peaksat_passes}, where in the x axis we show the possible LTAN of the satellite, and in the Y axis the maximum expected altitude. The propagation was performed using orekit.
+We are very interested in knowing how much times we expect to have a pass opportunity. Moreover, we are interested in the maximum altitude of each pass, because it is connected both with atmospheric loss, but also the pass duration. We perform a simple analysis (\href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/orbits_simulations/orbit_propagations_orekit/plot_passes/plots_passes_LTAN_tleprop.ipynb}{pass\textunderscore LTAN\textunderscore tleprop.ipynb}) where we propagate different TLEs, for the different possible launch LTANs of the satellite. Results for our analysis can be found in \cref{fig:peaksat_passes}, where in the x axis we show the possible LTAN of the satellite, and in the Y axis the maximum expected altitude. The propagation was performed using \texttt{orekit}. Finally, a simple example regarding transforming between mean and osculating elements using \texttt{orekit} can be found in \href{https://github.com/pthemis5/peakpyp/blob/main/peakpyp/orbits_simulations/orbit_propagations_orekit/TLE_elements.ipynb}{TLE\textunderscore elements.ipynb}.
 
 
 
@@ -127,6 +127,32 @@ We are very interested in knowing how much times we expect to have a pass opport
 	\caption{Expected number of passes above HolOGS, for the first week after the launch (29 March 2026), as a function of the possible Local Times of the Ascending Node. }
 	\label{fig:peaksat_passes}
 \end{figure}
+
+\section{External repositories}
+In this section, we mention external repositories that have been used in this work. 
+
+\begin{itemize}
+	\item \texttt{NumPy} \cite{numpy} \\
+	\href{https://github.com/numpy/numpy}{https://github.com/numpy/numpy}
+	
+	\item \texttt{SciPy} \cite{scipy} \\
+	\href{https://github.com/scipy/scipy}{https://github.com/scipy/scipy}
+	
+	\item \texttt{AstroPy} \cite{astropy} \\
+	\href{https://github.com/astropy/astropy}{https://github.com/astropy/astropy}
+	
+	\item \texttt{Orekit} \cite{orekit} \\
+	\href{https://github.com/CS-SI/Orekit}{https://github.com/CS-SI/Orekit}
+	
+	\item \texttt{pandas} \cite{pandas} \\
+	\href{https://github.com/pandas-dev/pandas}{https://github.com/pandas-dev/pandas}
+	
+	\item \texttt{Matplotlib} \cite{matplotlib} \\
+	\href{https://github.com/matplotlib/matplotlib}{https://github.com/matplotlib/matplotlib}
+	
+	\item \texttt{Plotly}  \\
+	\href{https://github.com/plotly/plotly.py}{https://github.com/plotly/plotly.py}
+\end{itemize}
 
 
 \section{Codes Used}
@@ -156,8 +182,3 @@ We are very interested in knowing how much times we expect to have a pass opport
 	\label{sec:codes_used}
 \end{table}
 
-\section{External repositories}
-TODO: add citations, github urls etc
-
-
-python, numpy, scipy, astropy, matplotlib, plotly, pandas, os, orekit, datetime, json, 
