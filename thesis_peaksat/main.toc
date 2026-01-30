@@ -22,55 +22,55 @@
 \contentsline {subsection}{\numberline {3.4.2}ORC to ECI transformation}{16}{subsection.3.4.2}%
 \contentsline {subsection}{\numberline {3.4.3}Spacecraft body coordinates (SBC)}{16}{subsection.3.4.3}%
 \contentsline {section}{\numberline {3.5}ADCS Mounting Configuration}{16}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Attitude Orientation Format}{18}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.1}Attitude Orientation Format}{17}{subsection.3.5.1}%
 \contentsline {subsection}{\numberline {3.5.2}SBC (again)}{18}{subsection.3.5.2}%
-\contentsline {section}{\numberline {3.6}Understanding the Estimated Orientation in practice.}{20}{section.3.6}%
+\contentsline {section}{\numberline {3.6}Understanding the Estimated Orientation in practice.}{19}{section.3.6}%
 \contentsline {subsubsection}{Implications on the Misalignment}{20}{section*.18}%
-\contentsline {section}{\numberline {3.7}Misalignment Usage}{21}{section.3.7}%
+\contentsline {section}{\numberline {3.7}Misalignment Usage}{20}{section.3.7}%
 \contentsline {subsection}{\numberline {3.7.1}Two Ground Tracking Control Modes}{21}{subsection.3.7.1}%
 \contentsline {paragraph}{ConTgtTrack}{21}{section*.19}%
 \contentsline {paragraph}{ConGndTrack}{21}{section*.21}%
-\contentsline {paragraph}{Comparison of Control Modes}{23}{section*.23}%
-\contentsline {subsection}{\numberline {3.7.2}Can we Trust the simulations?}{23}{subsection.3.7.2}%
-\contentsline {chapter}{\numberline {4}Misalignment Measurement}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction}{25}{section.4.1}%
-\contentsline {section}{\numberline {4.2}On-ground measurements}{26}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Star Tracker with alignment prism}{26}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Astrolight pointing maps}{26}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Star Tracker Prism to Beacon Camera}{26}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}Preparation of Measurement Procedures}{27}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Static misalignment targets}{27}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Equipment}{27}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Measurement Overview}{28}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Expected Results}{28}{subsection.4.3.4}%
-\contentsline {paragraph}{Vector}{29}{section*.27}%
-\contentsline {paragraph}{3D rotation matrix}{29}{section*.28}%
-\contentsline {subsection}{\numberline {4.3.5}Main procedures}{29}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}Aligning Theodolite with the Beacon Camera}{30}{subsection.4.3.6}%
-\contentsline {paragraph}{Relevant information}{30}{section*.30}%
-\contentsline {paragraph}{Implementation}{30}{section*.31}%
-\contentsline {paragraph}{Sources of uncertainty}{32}{section*.34}%
-\contentsline {subsection}{\numberline {4.3.7}Aligning theodolite with star tracker prism}{33}{subsection.4.3.7}%
-\contentsline {paragraph}{Implementation}{33}{section*.35}%
-\contentsline {paragraph}{Sources of uncertainty}{33}{section*.36}%
-\contentsline {subsection}{\numberline {4.3.8}Auto-referring theodolites}{33}{subsection.4.3.8}%
-\contentsline {paragraph}{Implementation}{33}{section*.37}%
-\contentsline {paragraph}{Mathematical angles representation}{34}{section*.39}%
-\contentsline {paragraph}{Sources of uncertainty}{35}{section*.41}%
-\contentsline {subsection}{\numberline {4.3.9}Propagation of measurement uncertainties}{36}{subsection.4.3.9}%
-\contentsline {subsection}{\numberline {4.3.10}Expected Measurement Uncertainty}{37}{subsection.4.3.10}%
-\contentsline {section}{\numberline {4.4}Measurement at ESTEC}{38}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Pre-Vibe Measurement}{38}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Post-Vibe Measurements}{39}{subsection.4.4.2}%
-\contentsline {section}{\numberline {4.5}ESTEC results}{39}{section.4.5}%
+\contentsline {paragraph}{Comparison of Control Modes}{21}{section*.23}%
+\contentsline {subsection}{\numberline {3.7.2}Can we Trust the simulations?}{22}{subsection.3.7.2}%
+\contentsline {chapter}{\numberline {4}Misalignment Measurement}{24}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{24}{section.4.1}%
+\contentsline {section}{\numberline {4.2}On-ground measurements}{25}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Star Tracker with alignment prism}{25}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Astrolight pointing maps}{25}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Star Tracker Prism to Beacon Camera}{25}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Preparation of Measurement Procedures}{26}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Static misalignment targets}{26}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Equipment}{26}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Measurement Overview}{27}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Expected Results}{27}{subsection.4.3.4}%
+\contentsline {paragraph}{Vector}{28}{section*.27}%
+\contentsline {paragraph}{3D rotation matrix}{28}{section*.28}%
+\contentsline {subsection}{\numberline {4.3.5}Main procedures}{28}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Aligning Theodolite with the Beacon Camera}{29}{subsection.4.3.6}%
+\contentsline {paragraph}{Relevant information}{29}{section*.30}%
+\contentsline {paragraph}{Implementation}{29}{section*.31}%
+\contentsline {paragraph}{Sources of uncertainty}{31}{section*.34}%
+\contentsline {subsection}{\numberline {4.3.7}Aligning theodolite with star tracker prism}{32}{subsection.4.3.7}%
+\contentsline {paragraph}{Implementation}{32}{section*.35}%
+\contentsline {paragraph}{Sources of uncertainty}{32}{section*.36}%
+\contentsline {subsection}{\numberline {4.3.8}Auto-referring theodolites}{32}{subsection.4.3.8}%
+\contentsline {paragraph}{Implementation}{32}{section*.37}%
+\contentsline {paragraph}{Mathematical angles representation}{33}{section*.39}%
+\contentsline {paragraph}{Sources of uncertainty}{34}{section*.41}%
+\contentsline {subsection}{\numberline {4.3.9}Propagation of measurement uncertainties}{35}{subsection.4.3.9}%
+\contentsline {subsection}{\numberline {4.3.10}Expected Measurement Uncertainty}{36}{subsection.4.3.10}%
+\contentsline {section}{\numberline {4.4}Measurement at ESTEC}{37}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Pre-Vibe Measurement}{37}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Post-Vibe Measurements}{38}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}ESTEC results}{38}{section.4.5}%
 \contentsline {paragraph}{Definitions}{39}{section*.44}%
-\contentsline {paragraph}{Coordinate Systems}{40}{section*.45}%
-\contentsline {paragraph}{Calculating Vectors}{40}{section*.46}%
-\contentsline {subsubsection}{Transforming Vectors}{40}{section*.47}%
-\contentsline {paragraph}{Calculating BC vector and misalignment}{41}{section*.48}%
+\contentsline {paragraph}{Coordinate Systems}{39}{figure.caption.46}%
+\contentsline {paragraph}{Calculating Vectors}{40}{section*.47}%
+\contentsline {paragraph}{Transforming Vectors}{40}{section*.48}%
+\contentsline {paragraph}{Calculating BC vector and misalignment}{41}{figure.caption.50}%
 \contentsline {section}{\numberline {4.6}BC-BCRS Characterization}{45}{section.4.6}%
-\contentsline {paragraph}{Beacon Camera}{45}{section*.53}%
-\contentsline {subsection}{\numberline {4.6.1}Conclusions}{46}{subsection.4.6.1}%
+\contentsline {paragraph}{Beacon Camera}{46}{section*.55}%
+\contentsline {subsection}{\numberline {4.6.1}Conclusions}{48}{subsection.4.6.1}%
 \contentsline {section}{\numberline {4.7}Input to the ADCS}{48}{section.4.7}%
 \contentsline {chapter}{\numberline {5}Conclusions}{51}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Operational Scenarios}{51}{section.5.1}%
