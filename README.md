@@ -1,5 +1,7 @@
 # PEAKsat PYthon Public
-Containing Codes that were used for analyses, simulations, measurements and tests of the PeakSat mission
+Containing Codes that were used for analyses, simulations, measurements and tests of the PeakSat mission. They scripts are made public as part of my thesis.
+
+**This is not a repository atively in development, and pulls changes from the relative private repositories used for the PeakSat Mission.**
 
 
 
@@ -21,31 +23,4 @@ Thank you very much PeakSat team.
 
 
 
-
-## Table of Content:
-
-- [Intallation](#installation)
-- [Usage](#usage)
-- [TODO](#todo)
-- [Contributing](#contributing)
-- [Credits](#credits)
-
-
-
-## Usage
-
---
-
-
-## TODO
-
-- [ ] Add Test
-
-
-## Contributing
-
-Contributions are welcome, and they are greatly appreciated! Every
-little bit helps, and credit will always be given.
-
-For more info please click [here](./CONTRIBUTING.md)
 

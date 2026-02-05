@@ -7,7 +7,7 @@
 \contentsline {section}{\numberline {1.4}External repositories}{6}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Codes Used}{7}{section.1.5}%
 \contentsline {chapter}{\numberline {2}Optical Payload}{8}{chapter.2}%
-\contentsline {section}{\numberline {2.1}ATLAS terminal}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.1}ATLAS terminal}{9}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Misalignments}{10}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Beacon Camera Properties}{11}{section.2.3}%
 \contentsline {chapter}{\numberline {3}ADCS}{13}{chapter.3}%
