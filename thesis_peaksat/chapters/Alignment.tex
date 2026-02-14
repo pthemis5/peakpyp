@@ -484,13 +484,13 @@ The transformation from unitary spherical coordinate system, to a Cartesian is n
 
 Because measurements for BCRS and TxRS are identical, in the following we will only refer to the BCRS. Considering that we have the rotation matrix to transform from one theodolite CS to the other from the previous paragraph, we can easily Transform the BC vector from the movable theodolite CS, to the fixed one. This means that we have the MC vector and BC vector in the same CS. Using a simple dot product we can find the relative angle between them. For example, the BCRS cone, with one side of the STR prism is:
 
-$$\theta_1 = \cos^-1 (v^f_{BC} \cdot v^{f}_{MC1})$$
+$$\theta_1 = \cos^{-1} (v^f_{BC} \cdot v^{f}_{MC1})$$
 
 To fully clarify the analysis, and the measurements used, we will remind that as explained in \cref{sec:preparation_of_measurement_procedures}, one full misalignment measurement takes place in 2 parts - one with a different side of the STR MC. 
 
 \begin{enumerate}
-	\item \textbf{Part 1}: Auto-collimate movable theodolite with BCRS. Auto-collimate fixed theodolite with STR side of STR MC. From \cref{fig:adcs_sbc} is the +Y SBC side, or the +Z Mirror Cube Coordinates (MCC). Its output is a cone with axis the +Z  MCC ($v^{f}_{MC1} \equiv \vec{k}_1$), and its angle is given by: $$\theta_1 = \cos^-1 (v^f_{BC} \cdot v^{f}_{MC1})$$ 
-	\item \textbf{Part 2}: Auto-collimate movable theodolite with BCRS. Auto-collimate fixed theodolite with Sun Sensor side of STR MC. From \cref{fig:adcs_sbc} is the -X SBC side, or the -X Mirror Cube Coordinates (MCC). Its output is a cone with axis the -X  MCC ($v^{f}_{MC2} \equiv \vec{k}_2$), and its angle is given by: $$\theta_2 = \cos^-1 (v^f_{BC} \cdot v^{f}_{MC2})$$ 
+	\item \textbf{Part 1}: Auto-collimate movable theodolite with BCRS. Auto-collimate fixed theodolite with STR side of STR MC. From \cref{fig:adcs_sbc} is the +Y SBC side, or the +Z Mirror Cube Coordinates (MCC). Its output is a cone with axis the +Z  MCC ($v^{f}_{MC1} \equiv \vec{k}_1$), and its angle is given by: $$\theta_1 = \cos^{-1} (v^f_{BC} \cdot v^{f}_{MC1})$$ 
+	\item \textbf{Part 2}: Auto-collimate movable theodolite with BCRS. Auto-collimate fixed theodolite with Sun Sensor side of STR MC. From \cref{fig:adcs_sbc} is the -X SBC side, or the -X Mirror Cube Coordinates (MCC). Its output is a cone with axis the -X  MCC ($v^{f}_{MC2} \equiv \vec{k}_2$), and its angle is given by: $$\theta_2 = \cos^{-1} (v^f_{BC} \cdot v^{f}_{MC2})$$ 
 \end{enumerate}
 
 This practically leaves us with 2 cones (see \cref{fig:al_post_cones_example}). As an example, previous to Vibration, the BCRS cones were measured. The cones are: 
